@@ -10,10 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/faker": "^6.6.9",
+    "faker": "^5.5.3",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.1.0",
+    "react-responsive-carousel": "^3.2.23",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^3.0.0-beta.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",

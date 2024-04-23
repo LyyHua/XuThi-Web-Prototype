@@ -1,0 +1,37 @@
+@import url('semantic-ui-css/semantic.min.css');
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ui.fixed.menu {
+  background-color: white;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+.ui.fixed.menu .item {
+  color: black;
+}
+.ui.fixed.menu .logo {
+    transform: scale(1.8); /* Adjust the scale value as needed */
+    padding-top: 18%;
+}
+
+.ui.fixed.menu .icon {
+    transform: scale(2);
+}
+
+.ui.search{
+  transform: scale(0.5);
+}
+
+.carousel-root{
+  margin-top: 65px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+}
