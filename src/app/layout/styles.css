@@ -34,4 +34,15 @@
   position: absolute;
   justify-content: center;
   align-items: center;
+  margin-bottom: 100px;
 }
+
+footer{
+  display: block;
+}
+
+#footer-main {
+  background: #2E2E2E;
+}
+
+
