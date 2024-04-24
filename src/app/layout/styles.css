@@ -2,7 +2,10 @@
 
 * {
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+  font-family: "Montserrat", sans-serif;
 }
 
 .ui.fixed.menu {
@@ -30,19 +33,16 @@
 }
 
 .carousel-root{
+  display: flex;
   margin-top: 65px;
-  position: absolute;
   justify-content: center;
   align-items: center;
-  margin-bottom: 100px;
-}
-
-footer{
-  display: block;
 }
 
 #footer-main {
   background: #2E2E2E;
 }
 
-
+.ProductList {
+  display: flex;
+}

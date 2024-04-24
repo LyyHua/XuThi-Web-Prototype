@@ -3,12 +3,12 @@ import { Carousel } from 'react-responsive-carousel';
 
 export default function ImageCarousel(props: any) {
   return (
-    <Carousel swipeable={true} infiniteLoop stopOnHover showThumbs={false} emulateTouch={true}>
-        {props.image.map((image: any) => {
-            return (
-                <img src={image.src} alt={image.alt} />
-            )
-        })}
-    </Carousel>
+      <Carousel swipeable={true} infiniteLoop stopOnHover showThumbs={false} emulateTouch={true}>
+          {props.image.map((image: any, index: number) => {
+              return (
+                  <img src={image.src} alt={image.alt} key={index} />
+              )
+          })}
+      </Carousel>
   )
 }
