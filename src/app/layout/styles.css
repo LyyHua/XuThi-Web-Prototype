@@ -1,9 +1,5 @@
 @import url('semantic-ui-css/semantic.min.css');
 
-* {
-  box-sizing: border-box;
-}
-
 h1{
   font-family: "Montserrat", sans-serif;
 }
@@ -13,23 +9,20 @@ h1{
   border: none;
   border-radius: 0;
   box-shadow: none;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
 }
 .ui.fixed.menu .item {
   color: black;
 }
+
+.logo{
+  border: none;
+}
+
 .ui.fixed.menu .logo {
     transform: scale(1.8); /* Adjust the scale value as needed */
     padding-top: 18%;
-}
-
-.ui.fixed.menu .icon {
-    transform: scale(2);
-}
-
-.ui.search{
-  transform: scale(0.5);
 }
 
 .carousel-root{
@@ -46,4 +39,14 @@ h1{
 .ui.divider {
   margin-left: auto;
   margin-right: auto;
+}
+
+.shoppingcartcircle:not(.innershoppingcartcircle) {
+  position: absolute;
+  background-color: rgba(198, 198, 198, 0.8);
+  top: 7%;
+  left: 74%;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
 }
