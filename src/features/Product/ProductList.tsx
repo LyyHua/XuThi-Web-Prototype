@@ -19,12 +19,13 @@ export default function ProductList(props: any) {
       <Divider style={{ width: '95%' }} />
       <Grid centered>
         <Grid.Row>
-          {props.product.map((product: any) => {
+          {props.product.map((product: any, index: number) => {
             return (
-              <Grid.Column width={3} style={{ padding: '10px', marginBottom: '20px' }}>
+              <Grid.Column key={index} width={3} style={{ padding: '10px', marginBottom: '20px' }}>
                 <Container className="product">
                   <Image src={product.photoURL} alt={product.name} />
-                  <Modal
+                  <Modal className="modal"
+                    size='small'
                     onClose={() => handleClose(product.id)}
                     onOpen={() => handleOpen(product.id)}
                     open={open[product.id]}
@@ -34,24 +35,25 @@ export default function ProductList(props: any) {
                       </Button>
                     }
                   >
-                    <ModalContent image>
-                      <Image size="small" src={((): string => { console.log(product.photoURL); return product.photoURL; })()} alt={product.name} />
+                    <ModalContent image className="modalcontent">
+                      <Image size="small" src={product.photoURL} alt={product.name} />
                       <ModalDescription>
                         <Header>{product.name}</Header>
                         <p>{product.description}</p>
                         <h3><strong>{product.price}</strong><u>đ</u></h3>
+                        <Button icon className="closebutton" onClick={() => handleClose(product.id)}>
+                          <Icon size='large' className="closebuttonicon" name="times"/>
+                        </Button>
                       </ModalDescription>
                     </ModalContent>
-                    <ModalActions>
-                      <Button color='black' onClick={() => handleClose(product.id)}>
-                        Nope
-                      </Button>
+                    <ModalActions className="buttonholder">
+                      <Button className="pay" content='THANH TOÁN NGAY' color='black' />
                       <Button
-                        content="Yep, that's me"
-                        labelPosition='right'
-                        icon='checkmark'
-                        onClick={() => handleClose(product.id)}
-                        positive
+                        className="addtocartbutton"
+                        color='black'
+                        inverted
+                        style={{color: 'black', marginBottom: '1.5em', marginTop: '1em'}}
+                        content="THÊM VÀO GIỎ HÀNG"
                       />
                     </ModalActions>
                   </Modal>

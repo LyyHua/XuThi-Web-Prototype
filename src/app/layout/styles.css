@@ -1,6 +1,6 @@
 @import url('semantic-ui-css/semantic.min.css');
 
-h1{
+*{
   font-family: "Montserrat", sans-serif;
 }
 
@@ -43,10 +43,47 @@ h1{
 
 .shoppingcartcircle:not(.innershoppingcartcircle) {
   position: absolute;
-  background-color: rgba(198, 198, 198, 0.8);
+  background-color: rgba(0, 0, 0, 0.3);
   top: 7%;
   left: 74%;
   width: 45px;
   height: 45px;
   border-radius: 50%;
+}
+
+.modalcontent{
+  margin-top: 2em;
+}
+
+.closebutton:not(.closebuttonicon){
+  background-color: rgba(255, 255, 255);
+  position: absolute;
+  width: 5%;
+  top: 7%;
+  left: 92%;
+}
+
+.closebuttonicon{
+  position: relative;
+  left: -35%;
+}
+
+.addtocartbutton:hover{
+  background-color: rgba(245, 245, 245) !important;
+}
+
+.pay{
+  font-family: "Montserrat", sans-serif !important;
+  height: 3rem;
+  position: relative;
+  left: -25%;
+  transform: scale(1.2);
+}
+
+.addtocartbutton{
+  font-family: "Montserrat", sans-serif !important;
+  height: 3rem;
+  position: relative;
+  left: -20%;
+  transform: scale(1.2);
 }

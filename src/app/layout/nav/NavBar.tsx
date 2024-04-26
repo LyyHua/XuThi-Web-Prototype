@@ -2,7 +2,7 @@ import { Container, Icon, Menu, MenuItem, Search } from "semantic-ui-react";
 
 export default function NavBar() {
   return (
-    <Menu inverted={true} fixed="top">
+    <Menu borderless inverted fixed="top">
       <Container style={{ width: "90%" }}>
         <MenuItem header>
           <img className="logo" src="/logo.svg" alt="logo" />
@@ -11,8 +11,8 @@ export default function NavBar() {
         <MenuItem name="Still Temporary" />
         <MenuItem 
           position="right"
-          positive={true}
-          inverted={true}
+          positive='true'
+          inverted='true'
           >
           <Search />
           <Icon size='big' name="user circle outline" style={{ marginLeft: "1em" }} />
