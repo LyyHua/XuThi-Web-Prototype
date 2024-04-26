@@ -2,7 +2,7 @@ import { Segment, Container, Grid, Header, List } from "semantic-ui-react";
 
 export default function PageCredit() {
     return (
-        <Segment inverted vertical style={{ padding: '5em 0em', position: 'fixed', bottom: 0, width: '100%', display: 'flex' }}>
+        <Segment inverted vertical style={{ padding: '5em 0em', position: 'relative', bottom: 0, width: '100%', display: 'flex' }}>
             <Container>
                 <Grid divided inverted stackable>
                     <Grid.Row>
