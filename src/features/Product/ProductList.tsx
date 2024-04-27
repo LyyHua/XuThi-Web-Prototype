@@ -24,11 +24,13 @@ export default function ProductList(props: any) {
         <Grid.Row>
           {props.product.map((product: any, index: number) => {
             return (
-              <Grid.Column key={index} width={3} style={{ padding: '10px', marginBottom: '20px' }}>
+              <Grid.Column key={index} width={3} style={{ padding: '1vw', marginBottom: '2vh' }}>
                 <Container className="product">
                   <Image src={product.photoURL} alt={product.name} />
-                  <Modal className="modal"
+                  <Modal 
+                    className="modal"
                     size='small'
+                    style={{width: '35%', height: '50%'}}
                     onClose={() => handleClose(product.id)}
                     onOpen={() => handleOpen(product.id)}
                     open={open[product.id]}
@@ -43,7 +45,7 @@ export default function ProductList(props: any) {
                       <ModalDescription>
                         <Header>{product.name}</Header>
                         <p>{product.description}</p>
-                        <h3><strong>{product.price}</strong><u>đ</u></h3>
+                        <h3><strong>{product.price.toLocaleString()}</strong><u>đ</u></h3>
                         <Button icon className="closebutton" onClick={() => handleClose(product.id)}>
                           <Icon size='large' className="closebuttonicon" name="times"/>
                         </Button>

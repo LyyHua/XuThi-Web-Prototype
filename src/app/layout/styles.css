@@ -92,6 +92,12 @@
   font-family: "Montserrat", sans-serif !important;
 }
 
+.popupcartfooter{
+  margin-top: 2.5vh;
+  margin-left: 0.5vw;
+  height: 15vh;
+}
+
 .popupcartcontent{
   display: flex;
   flex-direction: column;
