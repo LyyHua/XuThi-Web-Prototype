@@ -91,3 +91,11 @@
 .popupcartheader{
   font-family: "Montserrat", sans-serif !important;
 }
+
+.popupcartcontent{
+  display: flex;
+  flex-direction: column;
+  height: 45vh;
+  width: 28vw;
+  overflow-y: auto;
+}

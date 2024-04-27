@@ -55,7 +55,7 @@ export default function ProductList(props: any) {
                         content='THÊM VÀO GIỎ HÀNG'
                         color='black' 
                         onClick={() => {
-                          dispatch({ type: 'productItem/addToCart', payload: { id: product.id, photoURL: product.photoURL, amount: 1, price: product.price, description: product.description } });
+                          dispatch({ type: 'productItem/addToCart', payload: { name: product.name, id: product.id, photoURL: product.photoURL, amount: 1, price: product.price, description: product.description } });
                           handleClose(product.id);
                         }}
                         />
@@ -70,7 +70,7 @@ export default function ProductList(props: any) {
                   </Modal>
                   <h2>{product.name}</h2>
                   <p>{product.description}</p>
-                  <h3><strong>{product.price}</strong><u>đ</u></h3>
+                  <h3><strong>{product.price.toLocaleString()}</strong><u>đ</u></h3>
                 </Container>
               </Grid.Column>
             );
