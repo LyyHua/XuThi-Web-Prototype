@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Button, Container, Divider, Grid, Header, Icon, Modal, ModalActions, ModalContent, ModalDescription, Image } from "semantic-ui-react";
+import { useAppDispatch } from "../../app/store/store";
 
 export default function ProductList(props: any) {
   
+  const dispatch = useAppDispatch();
+
   const [open, setOpen] = useState<Record<string, boolean>>({});
 
   const handleOpen = (id: string) => {
@@ -47,13 +50,21 @@ export default function ProductList(props: any) {
                       </ModalDescription>
                     </ModalContent>
                     <ModalActions className="buttonholder">
-                      <Button className="pay" content='THANH TOÁN NGAY' color='black' />
+                      <Button 
+                        className="addtocartbutton" 
+                        content='THÊM VÀO GIỎ HÀNG'
+                        color='black' 
+                        onClick={() => {
+                          dispatch({ type: 'productItem/addToCart', payload: { id: product.id, photoURL: product.photoURL, amount: 1, price: product.price, description: product.description } });
+                          handleClose(product.id);
+                        }}
+                        />
                       <Button
-                        className="addtocartbutton"
+                        className="pay"
                         color='black'
                         inverted
                         style={{color: 'black', marginBottom: '1.5em', marginTop: '1em'}}
-                        content="THÊM VÀO GIỎ HÀNG"
+                        content="THANH TOÁN NGAY"
                       />
                     </ModalActions>
                   </Modal>

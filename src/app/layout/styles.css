@@ -68,11 +68,11 @@
   left: -35%;
 }
 
-.addtocartbutton:hover{
+.pay:hover{
   background-color: rgba(245, 245, 245) !important;
 }
 
-.pay{
+.addtocartbutton{
   font-family: "Montserrat", sans-serif !important;
   height: 3rem;
   position: relative;
@@ -80,10 +80,14 @@
   transform: scale(1.2);
 }
 
-.addtocartbutton{
+.pay{
   font-family: "Montserrat", sans-serif !important;
   height: 3rem;
   position: relative;
   left: -20%;
   transform: scale(1.2);
+}
+
+.popupcartheader{
+  font-family: "Montserrat", sans-serif !important;
 }

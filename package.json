@@ -10,12 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.3",
     "@types/faker": "^6.6.9",
     "faker": "^5.5.3",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.1.0",
+    "react-redux": "^9.1.1",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.23.0",
     "semantic-ui-css": "^2.5.0",
