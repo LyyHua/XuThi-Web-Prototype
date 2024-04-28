@@ -58,14 +58,14 @@
 .closebutton:not(.closebuttonicon){
   background-color: rgba(255, 255, 255);
   position: absolute;
-  width: 5%;
-  top: 7%;
-  left: 92%;
+  width: 5.5%;
+  top: 6.5%;
+  left: 90%;
 }
 
 .closebuttonicon{
   position: relative;
-  left: -35%;
+  right: 80%;
 }
 
 .pay:hover{
@@ -76,7 +76,7 @@
   font-family: "Montserrat", sans-serif !important;
   height: 3rem;
   position: relative;
-  left: -25%;
+  left: -19%;
   transform: scale(1.2);
 }
 
@@ -84,7 +84,7 @@
   font-family: "Montserrat", sans-serif !important;
   height: 3rem;
   position: relative;
-  left: -20%;
+  left: -10%;
   transform: scale(1.2);
 }
 
@@ -104,4 +104,17 @@
   height: 45vh;
   width: 28vw;
   overflow-y: auto;
+}
+
+.sizebutton:hover{
+  background-color: white !important;
+}
+
+.sizebutton.active:hover {
+  background-color: black !important;
+}
+
+.sizebutton{
+  border: 2px solid black !important;
+  box-shadow: none !important;
 }

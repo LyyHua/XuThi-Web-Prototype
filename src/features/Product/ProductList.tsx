@@ -4,6 +4,12 @@ import { useAppDispatch } from "../../app/store/store";
 
 export default function ProductList(props: any) {
   
+  const [active, setActive] = useState<string | null>(null);
+
+  const handleClick = (size: string) => {
+    setActive(size);
+  };
+
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState<Record<string, boolean>>({});
@@ -41,8 +47,8 @@ export default function ProductList(props: any) {
                     }
                   >
                     <ModalContent image className="modalcontent">
-                      <Image size="small" src={product.photoURL} alt={product.name} />
-                      <ModalDescription>
+                      <Image style={{marginLeft: '1.5vw'}} size="small" src={product.photoURL} alt={product.name} />
+                      <ModalDescription className="modal-description" style={{marginTop: '2vh'}}>
                         <Header>{product.name}</Header>
                         <p>{product.description}</p>
                         <h3><strong>{product.price.toLocaleString()}</strong><u>đ</u></h3>
@@ -51,13 +57,44 @@ export default function ProductList(props: any) {
                         </Button>
                       </ModalDescription>
                     </ModalContent>
+                    <ModalContent style={{marginTop: '-2.5vh'}}>
+                      <h3 style={{marginLeft: '1.5vw'}}>Kích cỡ</h3>
+                    <ModalDescription style={{marginLeft: '1.5vw'}}>
+                        {product.size.map((size: string, index: number) => {
+                          return (
+                            <Button
+                              active={active === size} 
+                              onClick={() => handleClick(size)} 
+                              color={active === size ? 'black' : 'black'}
+                              inverted={active !== size}
+                              key={index}
+                              className={'sizebutton ${active === size ? "active" : ""}'}
+                              content={size}
+                              size='large'
+                              style={{color: active === size ? 'white' : 'black', marginRight: '1vw'}}
+                            />
+                          );
+                        })}
+                      </ModalDescription>
+                    </ModalContent>
                     <ModalActions className="buttonholder">
                       <Button 
                         className="addtocartbutton" 
                         content='THÊM VÀO GIỎ HÀNG'
                         color='black' 
                         onClick={() => {
-                          dispatch({ type: 'productItem/addToCart', payload: { name: product.name, id: product.id, photoURL: product.photoURL, amount: 1, price: product.price, description: product.description } });
+                          dispatch({
+                            type: 'productItem/addToCart', 
+                            payload: { 
+                              name: product.name, 
+                              id: product.id, 
+                              photoURL: product.photoURL, 
+                              amount: 1, 
+                              price: product.price, 
+                              description: product.description,
+                              size: active
+                            }
+                          });
                           handleClose(product.id);
                         }}
                         />
@@ -82,3 +119,4 @@ export default function ProductList(props: any) {
     </Container>
   )
 }
+

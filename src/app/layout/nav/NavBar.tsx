@@ -1,8 +1,12 @@
 import { Container, Icon, Menu, MenuItem, Popup, Search, Item, ItemContent, ItemDescription, ItemHeader, ItemImage, ItemGroup, Button, Divider } from "semantic-ui-react";
-import { useAppSelector } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 
 export default function NavBar() {
+
+  const dispatch = useAppDispatch();
+
   const {cartItems} = useAppSelector(state => state.cartitem);
+
   return (
     <Menu borderless inverted fixed="top">
       <Container style={{ width: "90%" }}>
@@ -36,11 +40,30 @@ export default function NavBar() {
                     <Item key={index}>
                     <ItemImage size='small' className="cartitemimage" src={item.photoURL} alt={item.id} />
                     <ItemContent verticalAlign="middle" style={{paddingLeft: '1em'}}>
-                      <ItemHeader style={{fontSize:'1em'}} content={item.name}/>
-                      <ItemDescription style={{fontSize: '0.8em'}}>
+                      <ItemHeader style={{fontSize:'0.9em'}} content={item.name}/>
+                      <ItemDescription style={{fontSize: '0.75em'}}>
                         <p>{item.description}</p>
                         <p>Số lượng: {item.count}</p>
+                        <p>Kích cỡ: {item.size}</p>
                         <p><strong>{item.price.toLocaleString()}<u>đ</u></strong></p>
+                        <Button 
+                          floated="right"
+                          onClick={() => dispatch({ 
+                            type: 'productItem/incrementCount', 
+                            payload: { id: item.id, size: item.size } 
+                          })}
+                          >
+                            +
+                          </Button>
+                        <Button
+                          floated="right"
+                          onClick={() => dispatch({ 
+                            type: 'productItem/decrementCount', 
+                            payload: { id: item.id, size: item.size } 
+                          })}
+                          >
+                            -
+                        </Button>
                       </ItemDescription>
                     </ItemContent>
                   </Item>
