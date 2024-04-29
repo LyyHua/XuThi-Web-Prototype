@@ -65,7 +65,7 @@
 
 .closebuttonicon{
   position: relative;
-  right: 80%;
+  right: 120%;
 }
 
 .pay:hover{
@@ -75,16 +75,12 @@
 .addtocartbutton{
   font-family: "Montserrat", sans-serif !important;
   height: 3rem;
-  position: relative;
-  left: -19%;
   transform: scale(1.2);
 }
 
 .pay{
   font-family: "Montserrat", sans-serif !important;
   height: 3rem;
-  position: relative;
-  left: -10%;
   transform: scale(1.2);
 }
 

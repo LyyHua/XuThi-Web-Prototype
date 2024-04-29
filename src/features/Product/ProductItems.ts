@@ -9,7 +9,7 @@ export const ProductItems = [
     },
     {
         price: 40000,
-        photoURL: 'https://picsum.photos/seed/img7/250/250',
+        photoURL: 'https://picsum.photos/seed/img11/250/250',
         name: 'Test Product 2',
         description: 'Still nothing to see here',
         id: '2',
