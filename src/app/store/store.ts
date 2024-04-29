@@ -1,11 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { productItemSlice } from "../../features/Product/ProductItemSlices";
+import localStorageMiddleware from "./localStorageMiddleware";
+
+// Load the cart items from localStorage
+const savedCartItems = localStorage.getItem('cart');
+const preloadedState = {
+  cartitem: {
+    cartItems: savedCartItems ? JSON.parse(savedCartItems) : [],
+  },
+};
 
 export const store = configureStore({
-    reducer: {
-        cartitem: productItemSlice.reducer
-    }
+  reducer: {
+    cartitem: productItemSlice.reducer,
+  },
+  preloadedState, // Use the preloadedState
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

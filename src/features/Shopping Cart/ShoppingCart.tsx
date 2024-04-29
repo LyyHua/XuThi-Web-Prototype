@@ -1,10 +1,13 @@
 import { Popup, Icon, ItemGroup, Item, ItemImage, ItemContent, ItemHeader, ItemDescription, Divider, Button } from "semantic-ui-react";
-import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { useAppSelector } from "../../app/store/store";
+import { useNavigate } from "react-router-dom";
 
 export default function ShoppingCart() {
 
     const {cartItems} = useAppSelector(state => state.cartitem);
-      
+    
+    const navigate = useNavigate();
+
     return (
         <Popup
             position='bottom right'
@@ -19,7 +22,7 @@ export default function ShoppingCart() {
             <Popup.Content className="popupcartcontent">
                 {cartItems.map((item, index) => {
                 return (
-                    <div style={{marginBottom: '1em'}}>
+                    <div key={index} style={{marginBottom: '1em'}}>
                     <ItemGroup style={{marginLeft: '0.5vw'}}>
                     <Item key={index}>
                     <ItemImage size='small' className="cartitemimage" src={item.photoURL} alt={item.id} />
@@ -30,24 +33,6 @@ export default function ShoppingCart() {
                         <p>Số lượng: {item.count}</p>
                         <p>Kích cỡ: {item.size}</p>
                         <p><strong>{item.price.toLocaleString()}<u>đ</u></strong></p>
-                        {/* <Button 
-                            floated="right"
-                            onClick={() => dispatch({ 
-                            type: 'productItem/incrementCount', 
-                            payload: { id: item.id, size: item.size } 
-                            })}
-                            >
-                            +
-                            </Button>
-                        <Button
-                            floated="right"
-                            onClick={() => dispatch({ 
-                            type: 'productItem/decrementCount', 
-                            payload: { id: item.id, size: item.size } 
-                            })}
-                            >
-                            -
-                        </Button> */}
                         </ItemDescription>
                     </ItemContent>
                     </Item>
@@ -67,18 +52,20 @@ export default function ShoppingCart() {
                 </ItemContent>
                 </Item>
                 <Button
-                style={{marginTop: '1vh', width: '45%', height: '7vh', marginRight:'1.5vw'}}
-                className="clearallitem" 
-                content='XEM GIỎ HÀNG' 
-                color='black'
-                size='large' 
+                    style={{marginTop: '2vh', width: '45%', height: '45%', marginRight:'1.5vw', justifyContent: 'center'}}
+                    className="viewcartbutton"
+                    content='XEM GIỎ HÀNG' 
+                    color='black'
+                    size='large'
+                    onClick={() => navigate('/giohang')}
                 />
                 <Button
-                style={{marginTop: '1vh', width: '45%', height: '7vh'}} 
-                className="checkoutbutton" 
-                content='THANH TOÁN' 
-                color='green' 
-                size='large'
+                    style={{marginTop: '1vh', width: '45%', height: '7vh'}}
+                    className="checkoutbutton" 
+                    content='THANH TOÁN' 
+                    color='green' 
+                    size='large'
+                    onClick={() => navigate('/thanhtoan')}
                 />
             </Popup.Content>
         </Popup>

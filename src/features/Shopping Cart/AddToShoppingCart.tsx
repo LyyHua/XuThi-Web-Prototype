@@ -69,7 +69,7 @@ const [errorMessage, setErrorMessage] = useState<string | null>(null);
                 />
                 );
             })}
-            {errorMessage && <p style={{color: 'red', marginTop: '1.5vh', marginBottom: '-1vh'}}>{errorMessage}</p>}
+            {errorMessage && <p style={{color: 'red', marginTop: '2vh', marginBottom: '-1.5vh'}}>{errorMessage}</p>}
             </ModalDescription>
         </ModalContent>
         <ModalActions className="buttonholder">
@@ -82,19 +82,19 @@ const [errorMessage, setErrorMessage] = useState<string | null>(null);
                 setErrorMessage('Vui lòng chọn kích cỡ sản phẩm')
                 }
                 else{
-                dispatch({
-                type: 'productItem/addToCart', 
-                payload: { 
-                    name: props.productitems.name, 
-                    id: props.productitems.id, 
-                    photoURL: props.productitems.photoURL, 
-                    amount: 1, 
-                    price: props.productitems.price, 
-                    description: props.productitems.description,
-                    size: active
-                }
-                });
-                handleClose(props.productitems.id);
+                    dispatch({
+                        type: 'productItem/addToCart', 
+                        payload: { 
+                            name: props.productitems.name, 
+                            id: props.productitems.id, 
+                            photoURL: props.productitems.photoURL, 
+                            amount: 1, 
+                            price: props.productitems.price, 
+                            description: props.productitems.description,
+                            size: active
+                        }
+                    });
+                    handleClose(props.productitems.id);
                 }
             }}
             />
