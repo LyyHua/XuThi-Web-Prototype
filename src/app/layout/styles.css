@@ -115,3 +115,11 @@
   border: 2px solid black !important;
   box-shadow: none !important;
 }
+
+.cartitemimage{
+  scale: 1.1;
+}
+
+.itemheader{
+  margin-top: -1.1vh !important;
+}

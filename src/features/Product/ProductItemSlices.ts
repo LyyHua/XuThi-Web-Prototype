@@ -46,7 +46,13 @@ export const productItemSlice = createSlice({
                 item.count -= 1;
             }
         },
+        clearitem: (state, action: PayloadAction<{ id: string; size: string }>) => {
+            const index = state.cartItems.findIndex(item => item.id === action.payload.id && item.size === action.payload.size);
+            if (index !== -1) {
+                state.cartItems.splice(index, 1);
+            }
+        }
     },
 });
 
-export const { addToCart } = productItemSlice.actions;
+export const { addToCart, incrementCount, decrementCount, clearitem } = productItemSlice.actions;
