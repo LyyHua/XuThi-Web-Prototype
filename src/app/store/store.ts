@@ -11,6 +11,10 @@ const preloadedState = {
   },
 };
 
+if (!Array.isArray(preloadedState.cartitem.cartItems)) {
+  preloadedState.cartitem.cartItems = [];
+}
+
 export const store = configureStore({
   reducer: {
     cartitem: productItemSlice.reducer,

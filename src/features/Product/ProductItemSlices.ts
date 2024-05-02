@@ -9,6 +9,7 @@ type CartItem = {
     description: string;
     count: number;
     size: string;
+    checked: boolean;
 };
 
 type State = {
@@ -31,6 +32,7 @@ export const productItemSlice = createSlice({
             } else {
                 // If the item doesn't exist, add it to the cart with a count of 1
                 action.payload.count = 1;
+                action.payload.checked = true;
                 state.cartItems.push(action.payload);
             }
         },
@@ -51,8 +53,24 @@ export const productItemSlice = createSlice({
             if (index !== -1) {
                 state.cartItems.splice(index, 1);
             }
+        },
+        toggleItemChecked: (state, action: PayloadAction<number>) => {
+            const item = state.cartItems[action.payload];
+            if (item) {
+                item.checked = !item.checked;
+            }
+        },
+        updateItemCount: (state, action: PayloadAction<{ index: number; count: number }>) => {
+            const item = state.cartItems[action.payload.index];
+            if (item) {
+                item.count = action.payload.count as number;
+            }
+        },
+        toggleAllItemsChecked: (state) => {
+            const allChecked = state.cartItems.every(item => item.checked);
+            state.cartItems.forEach(item => item.checked = !allChecked);
         }
     },
 });
 
-export const { addToCart, incrementCount, decrementCount, clearitem } = productItemSlice.actions;
+export const { addToCart, incrementCount, decrementCount, clearitem, toggleItemChecked, updateItemCount, toggleAllItemsChecked } = productItemSlice.actions;
