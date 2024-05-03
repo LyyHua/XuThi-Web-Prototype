@@ -3,8 +3,12 @@ import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { toggleAllItemsChecked, toggleItemChecked, updateItemCount } from "../Product/ProductItemSlices";
 import { useCallback, useEffect, useState } from "react";
 import { selectAreAllItemsChecked } from "../../app/store/areAllItemsChecked";
+import { useNavigate } from "react-router-dom";
+import { createId } from "@paralleldrive/cuid2";
 
 export default function ShoppingCartInfo() {
+
+  const navigate = useNavigate();
 
   const cartItems = useAppSelector((state) => state.cartitem.cartItems)
   const dispatch = useAppDispatch();
@@ -47,10 +51,10 @@ export default function ShoppingCartInfo() {
   }, [dispatch]);
 
   return (
-    <Container>
+    <Container style={{paddingTop: '8vh'}}>
       <Container style={{display: 'flex', alignItems: 'center'}}>
-        <Checkbox checked={areAllItemsChecked} onChange={() => dispatch(toggleAllItemsChecked())} />
-        <h1>Tất cả sản phẩm trong giỏ hàng</h1>
+        <Checkbox style={{marginRight: '1vw'}} checked={areAllItemsChecked} onChange={() => dispatch(toggleAllItemsChecked())} />
+        <h1 style={{fontFamily:'Montserrat, sans-serif'}}>Tất cả sản phẩm trong giỏ hàng</h1>
       </Container>
       <Grid>
         <Grid.Column width={10} style={{marginBottom: '5vh'}}> 
@@ -79,7 +83,7 @@ export default function ShoppingCartInfo() {
                         onChange={handleInputChange(index)}
                         onKeyPress={handleInputKeyPress(index)}
                         onBlur={handleInputBlur(index)}
-                        style={{'width': '60px'}}
+                        style={{'width': '60px', textAlign: 'center'}}
                       />
                       <Button content='+1' onClick={() => dispatch({ type: 'productItem/incrementCount', payload: { id: item.id, size: item.size } })} />
                     </ItemDescription>
@@ -92,6 +96,15 @@ export default function ShoppingCartInfo() {
         <Grid.Column width={6}>
             <h1>Tạm tính</h1>
             <h3>{cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString()}<u>đ</u></h3>
+            <Button onClick={() => navigate('/')}>Tiếp tục mua sắm</Button>
+            <Button
+             onClick={() => {
+              const id = createId();
+              navigate(`/thanhtoan/${id}`)
+             }}
+             style={{fontFamily:'Montserrat, sans-serif'}} 
+             color="black">Thanh toán
+            </Button>
         </Grid.Column>
       </Grid>
     </Container>

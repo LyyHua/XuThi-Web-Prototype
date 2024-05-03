@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2",
     "@reduxjs/toolkit": "^2.2.3",
     "@types/faker": "^6.6.9",
     "faker": "^5.5.3",

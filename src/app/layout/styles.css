@@ -124,7 +124,7 @@
   margin-top: -1.1vh !important;
 }
 
-.ui.input > input.shopping-cart-input{
+.ui.input.shopping-cart-input > input{
   text-align: center !important;
 }
 
@@ -153,3 +153,4 @@
   max-height: 500px; /* Adjust this value as needed */
   overflow-y: auto;
 }
+
