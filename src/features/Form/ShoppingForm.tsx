@@ -5,6 +5,6 @@ export default function ShoppingForm() {
   let id = useParams();
 
   return (
-   <div>Hi</div> 
+   <h1>Hi</h1>
   )
 }

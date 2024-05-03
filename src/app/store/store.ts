@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { productItemSlice } from "../../features/Product/ProductItemSlices";
 import localStorageMiddleware from "./localStorageMiddleware";
+import checkoutId from "./checkoutId";
 
 // Load the cart items from localStorage
 const savedCartItems = localStorage.getItem('cart');
@@ -18,6 +19,7 @@ if (!Array.isArray(preloadedState.cartitem.cartItems)) {
 export const store = configureStore({
   reducer: {
     cartitem: productItemSlice.reducer,
+    checkoutId: checkoutId,
   },
   preloadedState, // Use the preloadedState
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),

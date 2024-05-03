@@ -28,7 +28,7 @@ export default function App() {
             <PageCredit />
           </>
         }/>
-        <Route path="/thanhtoan" element={
+        <Route path="/thanhtoan/:id" element={
             <CheckOut />
         }/>
       </Routes>

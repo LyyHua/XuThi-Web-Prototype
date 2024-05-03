@@ -5,8 +5,11 @@ import { useCallback, useEffect, useState } from "react";
 import { selectAreAllItemsChecked } from "../../app/store/areAllItemsChecked";
 import { useNavigate } from "react-router-dom";
 import { createId } from "@paralleldrive/cuid2";
+import { setCheckoutId } from "../../app/store/checkoutId";
 
 export default function ShoppingCartInfo() {
+
+  const checkoutId = useAppSelector(state => state.checkoutId);
 
   const navigate = useNavigate();
 
@@ -19,6 +22,21 @@ export default function ShoppingCartInfo() {
   useEffect(() => {
     setInputValues(cartItems.map(item => item.count.toString()));
   }, [cartItems]);
+
+  useEffect(() => {
+    // Get the checkoutId from localStorage
+    const savedCheckoutId = localStorage.getItem('checkoutId');
+
+    // If there's a saved checkoutId, use it
+    if (savedCheckoutId) {
+      dispatch(setCheckoutId(savedCheckoutId));
+    } else {
+      // Otherwise, generate a new checkoutId and save it in localStorage
+      const newCheckoutId = createId();
+      dispatch(setCheckoutId(newCheckoutId));
+      localStorage.setItem('checkoutId', newCheckoutId);
+    }
+  }, [dispatch]);
 
   const handleInputChange = useCallback((index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const newInputValues = [...inputValues];
@@ -99,8 +117,7 @@ export default function ShoppingCartInfo() {
             <Button onClick={() => navigate('/')}>Tiếp tục mua sắm</Button>
             <Button
              onClick={() => {
-              const id = createId();
-              navigate(`/thanhtoan/${id}`)
+              navigate(`/thanhtoan/${checkoutId}`);
              }}
              style={{fontFamily:'Montserrat, sans-serif'}} 
              color="black">Thanh toán
