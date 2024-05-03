@@ -83,7 +83,7 @@ export default function ShoppingCart() {
             <Popup.Content style={{marginTop: '2.5vh', marginLeft: '0.5vw', height: '15vh'}} className="popupcartfooter">
                 <Item style={{marginBottom: '1.5vh'}}>
                 <ItemContent style={{display: 'flex', alignItems: 'center'}}>
-                    <ItemHeader class='totalnavbar'>TỔNG CỘNG: </ItemHeader>
+                    <ItemHeader className='totalnavbar'>TỔNG CỘNG: </ItemHeader>
                     <ItemDescription>
                     <p className="totalnavbarbutindong" style={{marginLeft: '1em'}}><strong>{cartItems.reduce((total, item) => total + item.price * item.count, 0).toLocaleString()}<u>đ</u></strong></p>
                     </ItemDescription>

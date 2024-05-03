@@ -10,16 +10,15 @@ export default function ShoppingCartInfo() {
   const dispatch = useAppDispatch();
   const areAllItemsChecked = useAppSelector(selectAreAllItemsChecked);
 
-  const [inputValues, setInputValues] = useState(Array(cartItems.length).fill(''));
+  const [inputValues, setInputValues] = useState(cartItems.map(item => item.count.toString()));
 
   useEffect(() => {
-    setInputValues(Array(cartItems.length).fill(''));
+    setInputValues(cartItems.map(item => item.count.toString()));
   }, [cartItems]);
 
   const handleInputChange = useCallback((index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
     const newInputValues = [...inputValues];
-    newInputValues[index] = value;
+    newInputValues[index] = event.target.value;
     setInputValues(newInputValues);
   }, [inputValues]);
   
@@ -29,17 +28,17 @@ export default function ShoppingCartInfo() {
       count = isNaN(count) || count < 1 ? 1 : count;
       dispatch(updateItemCount({ index, count }));
       const newInputValues = [...inputValues];
-      newInputValues[index] = '';
+      newInputValues[index] = count.toString();
       setInputValues(newInputValues);
     }
   }, [dispatch, inputValues]);
-
+  
   const handleInputBlur = useCallback((index: number) => () => {
     let count = parseInt(inputValues[index]);
     count = isNaN(count) || count < 1 ? 1 : count;
     dispatch(updateItemCount({ index, count }));
     const newInputValues = [...inputValues];
-    newInputValues[index] = '';
+    newInputValues[index] = count.toString();
     setInputValues(newInputValues);
   }, [dispatch, inputValues]);
 
@@ -49,11 +48,13 @@ export default function ShoppingCartInfo() {
 
   return (
     <Container>
-      <h1 style={{marginTop: '10vh'}}>Tất cả sản phẩm trong giỏ hàng</h1>
-      <Checkbox checked={areAllItemsChecked} onChange={() => dispatch(toggleAllItemsChecked())} />
-      <Divider />
+      <Container style={{display: 'flex', alignItems: 'center'}}>
+        <Checkbox checked={areAllItemsChecked} onChange={() => dispatch(toggleAllItemsChecked())} />
+        <h1>Tất cả sản phẩm trong giỏ hàng</h1>
+      </Container>
       <Grid>
-        <Grid.Column width={12} style={{marginBottom: '5vh'}}> 
+        <Grid.Column width={10} style={{marginBottom: '5vh'}}> 
+        <Divider />
           <ItemGroup divided>
             {cartItems.map((item, index) => {
               return (
@@ -73,11 +74,12 @@ export default function ShoppingCartInfo() {
                       <Button icon='trash' onClick={() => dispatch({ type: 'productItem/clearitem', payload: { id: item.id, size: item.size } })} />
                       <Button content='-1' onClick={() => dispatch({ type: 'productItem/decrementCount', payload: { id: item.id, size: item.size } })} />
                       <Input
-                        transparent 
-                        defaultValue={item.count}
+                        className="shopping-cart-input"
+                        value={inputValues[index]}
                         onChange={handleInputChange(index)}
                         onKeyPress={handleInputKeyPress(index)}
-                        onBlur={handleInputBlur(index)} 
+                        onBlur={handleInputBlur(index)}
+                        style={{'width': '60px'}}
                       />
                       <Button content='+1' onClick={() => dispatch({ type: 'productItem/incrementCount', payload: { id: item.id, size: item.size } })} />
                     </ItemDescription>
@@ -87,9 +89,9 @@ export default function ShoppingCartInfo() {
             })}
           </ItemGroup>
         </Grid.Column>
-        <Grid.Column width={4}>
-            <h1>Tổng cộng</h1>
-
+        <Grid.Column width={6}>
+            <h1>Tạm tính</h1>
+            <h3>{cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString()}<u>đ</u></h3>
         </Grid.Column>
       </Grid>
     </Container>

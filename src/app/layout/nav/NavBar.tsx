@@ -1,6 +1,7 @@
 import { Container, Image, Icon, Menu, MenuItem, Search } from "semantic-ui-react";
 import ShoppingCart from "../../../features/Shopping Cart/ShoppingCart";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../../../features/SearchBar/SearchBar";
 
 export default function NavBar() {
 
@@ -17,7 +18,7 @@ export default function NavBar() {
           positive='true'
           inverted='true'
           >
-          <Search />
+          <SearchBar />
           <Icon size='big' name="user circle outline" style={{ marginLeft: "1em" }} />
           <ShoppingCart />
         </MenuItem>
