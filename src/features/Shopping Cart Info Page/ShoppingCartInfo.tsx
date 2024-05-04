@@ -71,7 +71,7 @@ export default function ShoppingCartInfo() {
   return (
     <Container style={{paddingTop: '8vh'}}>
       <Container style={{display: 'flex', alignItems: 'center'}}>
-        <Checkbox style={{marginRight: '1vw'}} checked={areAllItemsChecked} onChange={() => dispatch(toggleAllItemsChecked())} />
+        <Checkbox style={{marginRight: '1vw', paddingTop: '1em'}} checked={areAllItemsChecked} onChange={() => dispatch(toggleAllItemsChecked())} />
         <h1 style={{fontFamily:'Montserrat, sans-serif'}}>Tất cả sản phẩm trong giỏ hàng</h1>
       </Container>
       <Grid>
@@ -94,7 +94,7 @@ export default function ShoppingCartInfo() {
                       <p>Kích cỡ: {item.size}</p>
                       <p><strong>{item.price.toLocaleString()}<u>đ</u></strong></p>
                       <Button icon='trash' onClick={() => dispatch({ type: 'productItem/clearitem', payload: { id: item.id, size: item.size } })} />
-                      <Button content='-1' onClick={() => dispatch({ type: 'productItem/decrementCount', payload: { id: item.id, size: item.size } })} />
+                      <Button content='-' onClick={() => dispatch({ type: 'productItem/decrementCount', payload: { id: item.id, size: item.size } })} />
                       <Input
                         className="shopping-cart-input"
                         value={inputValues[index]}
@@ -103,7 +103,10 @@ export default function ShoppingCartInfo() {
                         onBlur={handleInputBlur(index)}
                         style={{'width': '60px', textAlign: 'center'}}
                       />
-                      <Button content='+1' onClick={() => dispatch({ type: 'productItem/incrementCount', payload: { id: item.id, size: item.size } })} />
+                      <Button 
+                        content='+'
+                        style={{marginLeft: '0.25vw'}}
+                        onClick={() => dispatch({ type: 'productItem/incrementCount', payload: { id: item.id, size: item.size } })} />
                     </ItemDescription>
                   </ItemContent>
                 </Item>

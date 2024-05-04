@@ -1,4 +1,4 @@
-import { Container, Image, Icon, Menu, MenuItem, Search } from "semantic-ui-react";
+import { Container, Icon, Menu, MenuItem } from "semantic-ui-react";
 import ShoppingCart from "../../../features/Shopping Cart/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../../features/SearchBar/SearchBar";
