@@ -1,17 +1,27 @@
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom"
 import { Container, Form, FormGroup, Header } from "semantic-ui-react";
 
 export default function ShoppingForm() {
 
-  let {id} = useParams();
-
-  const {register, handleSubmit, control, setValue, formState: {errors, isValid, isSubmitting} } = useForm({
+  const {register, handleSubmit, control, formState: {errors, isValid, isSubmitting} } = useForm({
     mode: 'onTouched'
   });
 
+  const deliveryOption = register('delivery', {required: true});
+
+  let {id} = useParams();
+
+  const [value, setValue] = useState('');
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  }
+
+
   return (
-    <Container clearing>
+    <Container>
       <Header content='THÔNG TIN GIAO HÀNG'/>
       <Form>
         <Header content='HỌ VÀ TÊN'/>
@@ -40,19 +50,42 @@ export default function ShoppingForm() {
         />
         <FormGroup inline>
           <label>Giao hàng ở: </label>
-          <Form.Radio
-            label='Trong khu vực TPHCM'
-            value='insidecity'
-            {...register('delivery', {required: true})}
-            error={errors.delivery && 'Bắt buộc phải chọn'}
+          <Controller
+            control={control}
+            name="delivery"
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Form.Radio
+                label='Trong khu vực TPHCM'
+                value='insidecity'
+                checked={value === 'insidecity'}
+                onChange={(e, {value}) => {
+                  setValue(value as string);
+                  field.onChange(value);
+                }}
+                error={errors.delivery && 'Bắt buộc phải chọn'}
+              />
+            )}
           />
-          <Form.Radio
-            label='Ngoài khu vực TPHCM'
-            value='outsidecity'
-            {...register('delivery', {required: true})}
-            error={errors.delivery && 'Bắt buộc phải chọn'}
+          <Controller
+            control={control}
+            name="delivery"
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Form.Radio
+                label='Ngoài khu vực TPHCM'
+                value='outsidecity'
+                checked={value === 'outsidecity'}
+                onChange={(e, { value }) => {
+                  setValue(value as string);
+                  field.onChange(value);
+                }}
+                error={errors.delivery && 'Bắt buộc phải chọn'}
+              />
+            )}
           />
         </FormGroup>
+        
       </Form>
     </Container>
   )
