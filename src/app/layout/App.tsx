@@ -4,9 +4,9 @@ import { ProductItems } from "../../features/Product/ProductItems";
 import ProductList from "../../features/Product/ProductList";
 import PageCredit from "./footer/PageCredit";
 import NavBar from "./nav/NavBar";
-import CheckOut from "../../features/CheckOut/CheckOut";
 import ShoppingCartInfo from "../../features/Shopping Cart Info Page/ShoppingCartInfo";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import ShoppingForm from "../../features/Form/ShoppingForm";
 
 export default function App() {
 
@@ -29,7 +29,7 @@ export default function App() {
           </>
         }/>
         <Route path="/thanhtoan/:id" element={
-            <CheckOut />
+            <ShoppingForm />
         }/>
       </Routes>
     </Router>

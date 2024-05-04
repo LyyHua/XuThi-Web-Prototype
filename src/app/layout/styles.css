@@ -154,3 +154,6 @@
   overflow-y: auto;
 }
 
+.shopping-form{
+  width: 100% !important;
+}
