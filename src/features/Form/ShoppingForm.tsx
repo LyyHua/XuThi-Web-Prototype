@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom"
-import { Button, Container, Form, FormGroup, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment } from "semantic-ui-react";
+import { Button, Container, Divider, DropdownProps, Form, FormGroup, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment } from "semantic-ui-react";
 import { useAppSelector } from "../../app/store/store";
+import ProvinceDropDownOption from "./ProvinceDropDownOption";
 
 export default function ShoppingForm() {
 
@@ -14,6 +15,8 @@ export default function ShoppingForm() {
 
   const [value, setValue] = useState('');
 
+  const [deliveryFee, setDeliveryFee] = useState(0);
+
   const onSubmit = (data: any) => {
     console.log(data);
   }
@@ -22,13 +25,15 @@ export default function ShoppingForm() {
   
   const cartItems = useAppSelector((state) => state.cartitem.cartItems)
   
-  const total = cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString();
+  const total = cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0);
+
+  const totalWithDelivery = total + deliveryFee; 
 
   return (
-    <Grid style={{margin: '1em'}}>
-      <Grid.Column width={10}>
+    <Grid className="shoppingformfont" style={{marginTop: '4em', marginLeft: '4em', marginRight: '5em'}}>
+      <Grid.Column width={10} style={{paddingRight: '3em'}}>
         <Container>
-          <Header content='THÔNG TIN ĐƠN HÀNG'/>
+          <Header style={{marginBottom: '1.2em'}} content='THÔNG TIN ĐƠN HÀNG'/>
           <Form>
             <Header content='HỌ VÀ TÊN'/>
             <Form.Input
@@ -36,18 +41,20 @@ export default function ShoppingForm() {
               {...register('username', {required: true})}
               error={errors.username && 'Bắt buộc phải điền tên'}
             />
-            <FormGroup inline>
-              <div>
+            <FormGroup style={{justifyContent: 'space-between', maxWidth: '100%', margin: '0 auto'}}>
+              <div style={{width: '48%'}}>
                 <Header content='EMAIL'/>
-                <Form.Input 
+                <Form.Input
+                  style={{width: '100%'}} 
                   placeholder='Nhập email'
                   {...register('useremail', {required: true})}
                   error={errors.useremail && 'Bắt buộc phải điền email'}
                 />
               </div>
-              <div>
+              <div style={{width: '48%'}}>
                 <Header content='SỐ ĐIỆN THOẠI'/>
-                <Form.Input 
+                <Form.Input
+                  style={{width: '100%'}}
                   placeholder='Nhập số điện thoại'
                   {...register('userphonenumber', {required: true})}
                   error={errors.userphonenumber && 'Bắt buộc phải điền số điện thoại'}
@@ -60,53 +67,25 @@ export default function ShoppingForm() {
               {...register('useraddress', {required: true})}
               error={errors.useraddress && 'Bắt buộc phải điền địa chỉ'}
             />
-            <FormGroup inline>
-              <label>Giao hàng ở: </label>
-              <Controller
-                control={control}
-                name="delivery"
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <Form.Radio
-                    label='Trong khu vực TPHCM'
-                    value='insidecity'
-                    checked={value === 'insidecity'}
-                    onChange={(e, {value}) => {
-                      setValue(value as string);
-                      field.onChange(value);
-                    }}
-                    error={errors.delivery && 'Bắt buộc phải chọn'}
-                  />
-                )}
+            <ProvinceDropDownOption/>
+            <Header>GHI CHÚ ĐƠN HÀNG:</Header>
+              <Form.TextArea 
+                placeholder='Nhập ghi chú'
+                {...register('usernote', {required: false})}
               />
-              <Controller
-                control={control}
-                name="delivery"
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <Form.Radio
-                    label='Ngoài khu vực TPHCM'
-                    value='outsidecity'
-                    checked={value === 'outsidecity'}
-                    onChange={(e, { value }) => {
-                      setValue(value as string);
-                      field.onChange(value);
-                    }}
-                    error={errors.delivery && 'Bắt buộc phải chọn'}
-                  />
-                )}
-              />
-            </FormGroup>
           </Form>
+          <Divider/>
         </Container>
       </Grid.Column>
       <Grid.Column width={6}>
-        <h1>Tóm tắt đơn hàng</h1>
-        <h3>{total}<u>đ</u></h3>
-        <Segment>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+          <h2 style={{margin: 0, padding: 0}}>Tóm tắt đơn hàng</h2>
+          <h2 style={{margin: 0, padding: 0}}>{totalWithDelivery}<u>đ</u></h2>
+        </div>
+        <Segment placeholder>
           {cartItems.filter(item => item.checked).map((item, index) => (
               <div key={index} style={{marginBottom: '5.5vh'}}>
-              <ItemGroup style={{marginLeft: '1.5vw'}}>
+                <ItemGroup style={{marginLeft: '1.5vw'}}>
                   <Item key={index}>
                       <ItemImage size='small' className="cartitemimage" src={item.photoURL} alt={item.id} />
                       <ItemContent verticalAlign="top" style={{paddingLeft: '1em'}}>
@@ -129,13 +108,21 @@ export default function ShoppingForm() {
           )}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <p>Tạm tính</p>
-            <p>{total}đ</p>
+            <p>{total.toLocaleString()}đ</p>
           </div>
-          <p>Phí vận chuyển</p>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <p>Phí vận chuyển</p>
+            <p>{deliveryFee.toLocaleString()}đ</p>
+          </div>
+          <div style={{ borderTop: '1px solid grey', marginBottom: '1em' }} />
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <h2 style={{margin: 0, padding: 0}}>TỔNG CỘNG:</h2>
+            <h2 style={{margin: 0, padding: 0}}>{totalWithDelivery.toLocaleString()}đ</h2>
+          </div>
         </Segment>
         <Button onClick={() => navigate('/giohang')}>Quay lại giỏ hàng</Button>
         <Button
-          onClick={() => {onSubmit}}
+          onClick={handleSubmit(onSubmit)}
           style={{fontFamily:'Montserrat, sans-serif'}} 
           color="black">Hoàn tất đơn hàng
         </Button>
