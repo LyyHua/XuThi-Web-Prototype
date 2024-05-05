@@ -15,7 +15,7 @@ export default function ShoppingForm() {
 
   const [value, setValue] = useState('');
 
-  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [deliveryFee, setDeliveryFee] = useState<string | number>("--------");
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -24,10 +24,26 @@ export default function ShoppingForm() {
   const navigate = useNavigate();
   
   const cartItems = useAppSelector((state) => state.cartitem.cartItems)
+
+  const selectedCity = useAppSelector((state) => state.province.selectedCity);
+  const selectedDistrict = useAppSelector((state) => state.province.selectedDistrict);
+  const selectedWard = useAppSelector((state) => state.province.selectedWard);
   
   const total = cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0);
 
-  const totalWithDelivery = total + deliveryFee; 
+  const totalWithDelivery = total + (typeof deliveryFee === 'number' ? deliveryFee : 0);
+
+  useEffect(() => {
+    if (selectedCity && selectedDistrict && selectedWard) {
+      if (selectedCity.value === 'city-79') {
+        setDeliveryFee(0);
+      } else {
+        setDeliveryFee(30000);
+      }
+    } else {
+      setDeliveryFee("-");
+    }
+  }, [selectedCity, selectedDistrict, selectedWard]);
 
   return (
     <Grid className="shoppingformfont" style={{marginTop: '4em', marginLeft: '4em', marginRight: '5em'}}>
@@ -112,7 +128,7 @@ export default function ShoppingForm() {
           </div>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <p>Phí vận chuyển</p>
-            <p>{deliveryFee.toLocaleString()}đ</p>
+            <p>{typeof deliveryFee === 'number' ? deliveryFee.toLocaleString() : deliveryFee}đ</p>
           </div>
           <div style={{ borderTop: '1px solid grey', marginBottom: '1em' }} />
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>

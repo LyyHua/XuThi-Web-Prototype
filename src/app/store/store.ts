@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { productItemSlice } from "../../features/Product/ProductItemSlices";
 import localStorageMiddleware from "./localStorageMiddleware";
 import checkoutId from "./checkoutId";
+import Province from "./Province";
 
 // Load the cart items from localStorage
 const savedCartItems = localStorage.getItem('cart');
@@ -20,6 +21,7 @@ export const store = configureStore({
   reducer: {
     cartitem: productItemSlice.reducer,
     checkoutId: checkoutId,
+    province: Province,
   },
   preloadedState, // Use the preloadedState
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
