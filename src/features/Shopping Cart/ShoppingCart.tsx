@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { createId } from "@paralleldrive/cuid2";
-import { setCheckoutId } from "../../app/store/checkoutId";
+import { setCheckoutId } from "../../app/store/CheckoutId";
 
 export default function ShoppingCart() {
 

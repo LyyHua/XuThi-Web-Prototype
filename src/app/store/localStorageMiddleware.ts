@@ -6,6 +6,9 @@ const localStorageMiddleware: Middleware = ({ getState }) => {
     if(action.type.startsWith('productItem/')){
       localStorage.setItem('cart', JSON.stringify(getState().cartitem.cartItems));
     }
+    if(action.type.startsWith('form/')){
+      localStorage.setItem('formState', JSON.stringify(getState().form))
+    }
     return result;
   };
 };

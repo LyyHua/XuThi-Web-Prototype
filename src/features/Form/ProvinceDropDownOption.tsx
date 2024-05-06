@@ -11,7 +11,7 @@ type OptionType = {
 }
 
 export default function ProvinceDropDownOption() {
-  const {control, formState: {errors} } = useForm({
+  const {control, formState: {errors}, setValue } = useForm({
     mode: 'onTouched'
   });
 
@@ -21,47 +21,68 @@ export default function ProvinceDropDownOption() {
 
   const [selectedCity, setSelectedCity] = useState<OptionType | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState<OptionType | null>(null);
-  const [_, setSelectedWard] = useState<OptionType | null>(null);
+  const [selectedWard, setSelectedWard] = useState<OptionType | null>(null);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (selectedCity?.value) {
-      axios.get(`https://vapi.vnappmob.com/api/province/district/${selectedCity.value.replace('city-', '')}`)
-      .then(response => {
-        setDistrictOptions(response.data.results.map((district: any) => ({ value: 'district-' + district.district_id, text: district.district_name })));
-      })
-      .catch(error => {
-        console.error('There was an error!', error);
-      });
-    }
-  }, [selectedCity]);
+    const fetchOptions = async () => {
+      try {
+        const cityResponse = await axios.get('https://vapi.vnappmob.com/api/province/');
+        const cities = cityResponse.data.results.map((city: any) => ({ value: 'city-' + city.province_id, text: city.province_name }));
+        setCityOptions(cities);
 
-  useEffect(() => {
-    if (selectedDistrict?.value) {
-      axios.get(`https://vapi.vnappmob.com/api/province/ward/${selectedDistrict.value.replace('district-', '')}`)
-      .then(response => {
-        let wards = response.data.results.map((ward: any) => ({ value: 'ward-' + ward.ward_id, text: ward.ward_name }));
-        if (wards.length === 0 && selectedDistrict) {
-          wards.push({ value: selectedDistrict.value, text: selectedDistrict.text });
+        if (selectedCity) {
+          const districtResponse = await axios.get(`https://vapi.vnappmob.com/api/province/district/${selectedCity.value.replace('city-', '')}`);
+          const districts = districtResponse.data.results.map((district: any) => ({ value: 'district-' + district.district_id, text: district.district_name }));
+          setDistrictOptions(districts);
         }
-        setWardOptions(wards);
-      })
-      .catch(error => {
+
+        if (selectedDistrict) {
+          const wardResponse = await axios.get(`https://vapi.vnappmob.com/api/province/ward/${selectedDistrict.value.replace('district-', '')}`);
+          let wards = wardResponse.data.results.map((ward: any) => ({ value: 'ward-' + ward.ward_id, text: ward.ward_name }));
+          if (wards.length === 0 && selectedDistrict) {
+            wards.push({ value: selectedDistrict.value, text: selectedDistrict.text });
+          }
+          setWardOptions(wards);
+        }
+      } catch (error) {
         console.error('There was an error!', error);
-      });
-    }
-  }, [selectedDistrict]);
+      }
+    };
+
+    fetchOptions();
+  }, [selectedCity, selectedDistrict]);
 
   useEffect(() => {
-    axios.get('https://vapi.vnappmob.com/api/province/')
-    .then(response => {
-      setCityOptions(response.data.results.map((city: any) => ({ value: 'city-' + city.province_id, text: city.province_name })));
-    })
-    .catch(error => {
-      console.error('There was an error!', error);
-    });
+    const storedCity = localStorage.getItem('city');
+    const storedDistrict = localStorage.getItem('district');
+    const storedWard = localStorage.getItem('ward');
+
+    if (storedCity) {
+      const cityOption = JSON.parse(storedCity);
+      setSelectedCity(cityOption);
+      dispatch(setCityInStore(cityOption));
+    }
+
+    if (storedDistrict) {
+      const districtOption = JSON.parse(storedDistrict);
+      setSelectedDistrict(districtOption);
+      dispatch(setDistrictInStore(districtOption));
+    }
+
+    if (storedWard) {
+      const wardOption = JSON.parse(storedWard);
+      setSelectedWard(wardOption);
+      dispatch(setWardInStore(wardOption));
+    }
   }, []);
+
+  useEffect(() => {
+    setValue('city', selectedCity);
+    setValue('district', selectedDistrict);
+    setValue('ward', selectedWard);
+  }, [selectedCity, selectedDistrict, selectedWard, setValue]);
 
   return (
     <Container style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -69,6 +90,7 @@ export default function ProvinceDropDownOption() {
             name="city"
             control={control}
             rules={{ required: 'Bắt buộc phải chọn tỉnh/thành' }}
+            defaultValue={selectedCity?.value || ''}
             render={({ field }) => (
                 <Form.Select
                     className="province-dropdown"
@@ -83,9 +105,16 @@ export default function ProvinceDropDownOption() {
                       setDistrictOptions([]);
                       setWardOptions([]);
                       setSelectedCity(selectedOption);
+                      setSelectedDistrict(null); // Reset the district in local state
+                      setSelectedWard(null); // Reset the ward in local state
                       dispatch(setCityInStore(selectedOption));
-                      dispatch(setDistrictInStore(null));
-                      dispatch(setWardInStore(null));
+                      dispatch(setDistrictInStore(null)); // Reset the district in Redux store
+                      dispatch(setWardInStore(null)); // Reset the ward in Redux store
+                      setValue('district', null); // Clear the displayed value of the district dropdown
+                      setValue('ward', null); // Clear the displayed value of the ward dropdown
+                      localStorage.setItem('city', JSON.stringify(selectedOption));
+                      localStorage.removeItem('district'); // Remove the district from local storage
+                      localStorage.removeItem('ward'); // Remove the ward from local storage
                     }}
                     error={errors.city && errors.city.message}
                 />
@@ -95,6 +124,7 @@ export default function ProvinceDropDownOption() {
             name="district"
             control={control}
             rules={{ required: 'Bắt buộc phải chọn quận/huyện' }}
+            defaultValue={selectedDistrict?.value || ''}
             render={({ field }) => (
                 <Form.Select
                     className="province-dropdown"
@@ -109,6 +139,7 @@ export default function ProvinceDropDownOption() {
                       setWardOptions([]);
                       setSelectedDistrict(selectedOption);
                       dispatch(setDistrictInStore(selectedOption));
+                      localStorage.setItem('district', JSON.stringify(selectedOption));
                     }}
                     error={errors.district && errors.district.message}
                 />
@@ -131,6 +162,7 @@ export default function ProvinceDropDownOption() {
                       field.onChange(selectedOption);
                       setSelectedWard(selectedOption);
                       dispatch(setWardInStore(selectedOption));
+                      localStorage.setItem('ward', JSON.stringify(selectedOption));
                   }}
                     error={errors.ward && errors.ward.message}
                 />

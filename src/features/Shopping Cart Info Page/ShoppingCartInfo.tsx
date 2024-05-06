@@ -2,10 +2,10 @@ import { Button, Checkbox, Container, Divider, Grid, Input, Item, ItemContent, I
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { toggleAllItemsChecked, toggleItemChecked, updateItemCount } from "../Product/ProductItemSlices";
 import { useCallback, useEffect, useState } from "react";
-import { selectAreAllItemsChecked } from "../../app/store/areAllItemsChecked";
+import { selectAreAllItemsChecked } from "../../app/store/AreAllItemsChecked";
 import { useNavigate } from "react-router-dom";
 import { createId } from "@paralleldrive/cuid2";
-import { setCheckoutId } from "../../app/store/checkoutId";
+import { setCheckoutId } from "../../app/store/CheckoutId";
 
 export default function ShoppingCartInfo() {
 
