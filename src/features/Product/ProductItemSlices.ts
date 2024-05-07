@@ -69,8 +69,9 @@ export const productItemSlice = createSlice({
         toggleAllItemsChecked: (state) => {
             const allChecked = state.cartItems.every(item => item.checked);
             state.cartItems.forEach(item => item.checked = !allChecked);
-        }
+        },
+        resetCartItems: () => initialState,
     },
 });
 
-export const { addToCart, incrementCount, decrementCount, clearitem, toggleItemChecked, updateItemCount, toggleAllItemsChecked } = productItemSlice.actions;
+export const { addToCart, incrementCount, decrementCount, clearitem, toggleItemChecked, updateItemCount, toggleAllItemsChecked, resetCartItems } = productItemSlice.actions;

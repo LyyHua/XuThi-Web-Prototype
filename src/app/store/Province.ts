@@ -30,9 +30,10 @@ export const provinceSlice = createSlice({
     setSelectedWard: (state, action: PayloadAction<OptionType | null>) => {
       state.selectedWard = action.payload;
     },
+    resetProvince: () => initialState,
 },
 });
 
-export const { setSelectedCity, setSelectedDistrict, setSelectedWard } = provinceSlice.actions;
+export const { setSelectedCity, setSelectedDistrict, setSelectedWard, resetProvince } = provinceSlice.actions;
 
 export default provinceSlice.reducer;

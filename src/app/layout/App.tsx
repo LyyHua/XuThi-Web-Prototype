@@ -7,14 +7,30 @@ import NavBar from "./nav/NavBar";
 import ShoppingCartInfo from "../../features/Shopping Cart Info Page/ShoppingCartInfo";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ShoppingForm from "../../features/Form/ShoppingForm";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EmptyShoppingCart from "../../features/Empty Shopping Cart/EmptyShoppingCart";
 import SimplifiedNavBar from "./simplifiednavbar/SimplifiedNavBar";
 import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
-import { Suspense } from "react";
-import LoadingComponent from "./LoadingComponent";
+import FinishShopping from "../../features/FinishShopping/FinishShopping";
+import { createId } from "@paralleldrive/cuid2";
+import { useEffect } from "react";
+import { setCheckoutId } from "../store/CheckoutId";
 
 export default function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const savedCheckoutId = localStorage.getItem('checkoutId');
+    
+    if (savedCheckoutId) {
+      dispatch(setCheckoutId(savedCheckoutId));
+    } else {
+      const newCheckoutId = createId(); // Replace this with your function to create a new checkoutId
+      dispatch(setCheckoutId(newCheckoutId));
+      localStorage.setItem('checkoutId', newCheckoutId);
+    }
+  }, [dispatch]);
 
   const cartItems = useSelector((state: any) => state.cartitem.cartItems);
 
@@ -24,25 +40,31 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={
-            <Suspense fallback={<LoadingComponent/>}>
+            <>
                 <NavBar />
                 <ImageCarousel image={CarouselData}/>
                 <ProductList product={ProductItems} />
                 <PageCredit />
-            </Suspense>
+            </>
         }/>
         <Route path="/giohang" element={
-          <Suspense fallback={<LoadingComponent/>}>
+          <>
             <NavBar />
             {cartItems.length === 0 ? <EmptyShoppingCart/> : <ShoppingCartInfo/>}
             <PageCredit />
-          </Suspense>
+          </>
         }/>
         <Route path="/thanhtoan/:id" element={
-          <Suspense fallback={<LoadingComponent/>}>
+          <>
             <SimplifiedNavBar/>
             {(areAllItemsChecked && cartItems.length > 0) ? <ShoppingForm /> : <EmptyShoppingCart/>}
-          </Suspense>
+          </>
+        }/>
+        <Route path="/hoanthanh" element={
+          <>
+            <SimplifiedNavBar/>
+            <FinishShopping/>
+          </>
         }/>
       </Routes>
     </Router>

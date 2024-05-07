@@ -31,7 +31,7 @@ function SearchBar() {
   const { loading, results, value } = state;
 
   const timeoutRef = React.useRef<number>();
-  const handleSearchChange = React.useCallback((e: any, data: any) => {
+  const handleSearchChange = React.useCallback((_: any, data: any) => {
     clearTimeout(timeoutRef.current);
     dispatch({ type: 'START_SEARCH', query: data.value });
 
@@ -46,7 +46,7 @@ function SearchBar() {
 
       const filteredResults = _.filter(ProductItems, isMatch);
 
-      const results = filteredResults.map(item => ({
+      const results = filteredResults.map((item:any) => ({
         price: `Giá: ${Number(item.price).toLocaleString()}`,
         description: item.description,
         title: item.name,
@@ -72,7 +72,7 @@ function SearchBar() {
       aligned='right'
       size='large'
       loading={loading}
-      onResultSelect={(e, data) =>
+      onResultSelect={(_, data) =>
         dispatch({ type: 'UPDATE_SELECTION', selection: data.result.name })
       }
       onSearchChange={handleSearchChange}

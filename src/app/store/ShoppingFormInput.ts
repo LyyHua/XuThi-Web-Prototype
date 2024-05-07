@@ -35,9 +35,10 @@ const formSlice = createSlice({
     setUserNote: (state, action: PayloadAction<string>) => {
       state.usernote = action.payload;
     },
+    resetShoppingFormState: () => initialState,
   },
 });
 
-export const { setUsername, setUserEmail, setUserPhoneNumber, setUserAddress, setUserNote } = formSlice.actions;
+export const { setUsername, setUserEmail, setUserPhoneNumber, setUserAddress, setUserNote, resetShoppingFormState } = formSlice.actions;
 
 export default formSlice.reducer;

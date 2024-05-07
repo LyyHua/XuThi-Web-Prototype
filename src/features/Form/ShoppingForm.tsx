@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate} from "react-router-dom"
 import { Button, Form, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment, Image, Radio } from "semantic-ui-react";
-import { useAppSelector } from "../../app/store/store";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import ShoppingFormPersonalInput from "./ShoppingFormPersonalInput";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../app/config/firebase";
+import { resetProvince } from "../../app/store/Province";
+import { resetCartItems } from "../Product/ProductItemSlices";
+import { resetShoppingFormState } from "../../app/store/ShoppingFormInput";
+import { resetCheckoutId } from "../../app/store/CheckoutId";
 
 export default function ShoppingForm() {
 
@@ -15,11 +19,13 @@ export default function ShoppingForm() {
     mode: 'onTouched',
   });
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('COD');
 
-  const handleRadioChange = (e: any, { value }: any) => {
+  const handleRadioChange = (_: any, { value }: any) => {
     setValue(value);
   };
+
+  const dispatch = useAppDispatch();
 
   const [deliveryFee, setDeliveryFee] = useState<string | number>("--------");
 
@@ -71,8 +77,16 @@ export default function ShoppingForm() {
         "phường": selectedWard?.text,
       },
       "Giỏ hàng": checkedCartItems,
+      "Tổng tiền": totalWithDelivery.toLocaleString() + 'đ',
+      
     };
     await setDoc(doc(db, "đơn hàng", checkoutId), formDataWithLocation);
+    dispatch(resetCartItems());
+    dispatch(resetShoppingFormState());
+    dispatch(resetProvince());
+    dispatch(resetCheckoutId());
+    localStorage.clear();
+    navigate('/hoanthanh');
   };
 
   return (

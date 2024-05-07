@@ -58,8 +58,14 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                         <Form.Input
                             style={{width: '100%'}} 
                             placeholder='Nhập email'
-                            {...registerProp('useremail', {required: true})}
-                            error={errorsProp.useremail && 'Bắt buộc phải điền email'}
+                            {...registerProp('useremail', {
+                                required: 'Bắt buộc phải điền email',
+                                pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                message: 'Email không hợp lệ'
+                                }
+                            })}
+                            error={errorsProp.useremail && (errorsProp.useremail.message || 'Bắt buộc phải điền email')}
                             onChange={(e) => handleInputChange(e, setUserEmail)}
                             value={shoppingFormState.useremail || ''}
                         />
@@ -69,8 +75,14 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                         <Form.Input
                             style={{width: '100%'}}
                             placeholder='Nhập số điện thoại'
-                            {...registerProp('userphonenumber', {required: true})}
-                            error={errorsProp.userphonenumber && 'Bắt buộc phải điền số điện thoại'}
+                            {...registerProp('userphonenumber', {
+                                required: 'Bắt buộc phải điền số điện thoại',
+                                pattern: {
+                                value: /^0[35789][0-9]{8}$/,
+                                message: 'Số điện thoại không hợp lệ'
+                                }
+                            })}
+                            error={errorsProp.userphonenumber && (errorsProp.userphonenumber.message || 'Bắt buộc phải điền số điện thoại')}
                             onChange={(e) => handleInputChange(e, setUserPhoneNumber)}
                             value={shoppingFormState.userphonenumber || ''}
                         />
