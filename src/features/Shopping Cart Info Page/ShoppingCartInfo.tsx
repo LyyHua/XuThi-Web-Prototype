@@ -81,11 +81,11 @@ export default function ShoppingCartInfo() {
             {cartItems.map((item, index) => {
               return (
                 <Item key={item.id}>
-                  <Checkbox 
-                    style={{marginRight: '1vh'}} 
+                  <Checkbox
+                    style={{marginRight: '1.8em', marginTop: '0.5em'}} 
                     checked={item.checked} 
                     onChange={() => handleCheckboxChange(index)} />
-                  <ItemImage size='small' src={item.photoURL} alt={item.id} />
+                  <ItemImage size='small' src={item.photoURL} alt={item.id} style={{scale: '1.2', marginTop: '0.8em', marginRight: '1em'}}  />
                   <ItemContent verticalAlign="middle">
                     <ItemHeader content={item.name} />
                     <ItemDescription>

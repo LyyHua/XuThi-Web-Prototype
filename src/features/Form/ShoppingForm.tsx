@@ -55,11 +55,10 @@ export default function ShoppingForm() {
 
   return (
     <Grid className="shoppingformfont" style={{marginTop: '5em', marginLeft: '4em', marginRight: '5em'}}>
-      <SimplifiedNavBar/>
       <Grid.Column width={10} style={{paddingRight: '3em'}}>
         <ShoppingFormPersonalInput register={register} errors={errors}/>
         <Form style={{paddingTop: '0.5em'}}>
-          <Header content="PHƯƠNG THỨC THANH TOÁN"/>
+          <Header style={{fontFamily: 'Montserrat, sans-serif'}} content="PHƯƠNG THỨC THANH TOÁN"/>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2em' }}>
               <Radio
                 style={{scale: '1.1'}}
@@ -84,21 +83,21 @@ export default function ShoppingForm() {
       </Grid.Column>
       <Grid.Column width={6}>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <h2 style={{margin: 0, padding: 0}}>Tóm tắt đơn hàng</h2>
+          <h2 style={{margin: 0, padding: 0, fontFamily: 'Montserrat, sans-serif'}}>Tóm tắt đơn hàng</h2>
           <h2 style={{margin: 0, padding: 0}}>{totalWithDelivery.toLocaleString()}<u>đ</u></h2>
         </div>
         <Segment placeholder>
           {cartItems.filter(item => item.checked).map((item, index) => (
-              <div key={index} style={{marginBottom: '5.5vh'}}>
+              <div key={index} style={{marginBottom: '0.8em', marginTop: '1em'}}>
                 <ItemGroup style={{marginLeft: '1.5vw'}}>
                   <Item key={index}>
-                      <ItemImage size='small' className="cartitemimage" src={item.photoURL} alt={item.id} />
-                      <ItemContent verticalAlign="top" style={{paddingLeft: '1em'}}>
+                      <ItemImage size='small' style={{scale:'1'}} className="cartitemimage" src={item.photoURL} alt={item.id} />
+                      <ItemContent verticalAlign="top" style={{paddingLeft: '1.2em', paddingTop: '1.5em'}}>
                           <div className="itemheader">
-                              <ItemHeader style={{fontSize:'0.9em', fontWeight: 'bold'}} content={item.name}/>
+                              <ItemHeader style={{fontSize:'1.2em', fontWeight: 'bold'}} content={item.name}/>
                           </div>
-                          <ItemDescription style={{fontSize: '0.75em'}}>
-                              <div style={{marginBottom: '0', marginTop: '-1.3vh'}}>
+                          <ItemDescription style={{fontSize: '1em'}}>
+                              <div style={{marginBottom: '0', marginTop: '0'}}>
                                   <p style={{marginBottom: '0.6vh'}}>{item.description}</p>
                                   <p style={{marginBottom: '0.6vh'}}>Số lượng: {item.count}</p>
                                   <p style={{marginBottom: '0.6vh'}}>Kích cỡ: {item.size}</p>
@@ -121,7 +120,7 @@ export default function ShoppingForm() {
           </div>
           <div style={{ borderTop: '1px solid grey', marginBottom: '1em' }} />
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <h2 style={{margin: 0, padding: 0}}>TỔNG CỘNG:</h2>
+            <h2 style={{margin: 0, padding: 0, fontFamily: 'Montserrat, sans-serif'}}>TỔNG CỘNG:</h2>
             <h2 style={{margin: 0, padding: 0}}>{totalWithDelivery.toLocaleString()}đ</h2>
           </div>
         </Segment>
