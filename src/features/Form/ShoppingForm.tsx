@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom"
-import { Button, Container, Divider, DropdownProps, Form, FormGroup, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment } from "semantic-ui-react";
+import { Button, Grid, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment } from "semantic-ui-react";
 import { useAppSelector } from "../../app/store/store";
-import ProvinceDropDownOption from "./ProvinceDropDownOption";
 import { useDispatch } from "react-redux";
-import { setUsername, setUserEmail, setUserPhoneNumber, setUserAddress, setUserNote } from "../../app/store/ShoppingFormInput";
+import ShoppingFormPersonalInput from "./ShoppingFormPersonalInput";
 
 export default function ShoppingForm() {
   
   const dispatch = useDispatch();
 
-  const shoppingFormState = useAppSelector((state) => state.shoppingFormState);
-
-  const {register, handleSubmit, control, formState: {errors, isValid, isSubmitting} } = useForm({
+  const {register, handleSubmit, formState: {errors} } = useForm({
     mode: 'onTouched',
-    defaultValues: shoppingFormState
   });
 
   let {id} = useParams();
@@ -24,27 +20,15 @@ export default function ShoppingForm() {
 
   const [deliveryFee, setDeliveryFee] = useState<string | number>("--------");
 
-  const onSubmit = (data: any) => {
-    dispatch(setUsername(data.username));
-    dispatch(setUserEmail(data.useremail));
-    dispatch(setUserPhoneNumber(data.userphonenumber));
-    dispatch(setUserAddress(data.useraddress));
-    dispatch(setUserNote(data.usernote));
-
-    console.log(data);
-  }
-
   const navigate = useNavigate();
   
   const cartItems = useAppSelector((state) => state.cartitem.cartItems)
-
+  
+  const total = cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0);
+  
   const selectedCity = useAppSelector((state) => state.province.selectedCity);
   const selectedDistrict = useAppSelector((state) => state.province.selectedDistrict);
   const selectedWard = useAppSelector((state) => state.province.selectedWard);
-  
-  const total = cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0);
-
-  const totalWithDelivery = total + (typeof deliveryFee === 'number' ? deliveryFee : 0);
 
   useEffect(() => {
     if (selectedCity && selectedDistrict && selectedWard) {
@@ -58,78 +42,16 @@ export default function ShoppingForm() {
     }
   }, [selectedCity, selectedDistrict, selectedWard]);
 
+  const totalWithDelivery = total + (typeof deliveryFee === 'number' ? deliveryFee : 0);
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <Grid className="shoppingformfont" style={{marginTop: '4em', marginLeft: '4em', marginRight: '5em'}}>
       <Grid.Column width={10} style={{paddingRight: '3em'}}>
-        <Container>
-          <Header style={{marginBottom: '1.2em'}} content='THÔNG TIN ĐƠN HÀNG'/>
-          <Form>
-            <Header content='HỌ VÀ TÊN'/>
-            <Form.Input
-              placeholder='Nhập họ và tên'
-              {...register('username', {required: true})}
-              error={errors.username && 'Bắt buộc phải điền tên'}
-              onChange={(e) => {
-                register('username').onChange(e);
-                dispatch(setUsername(e.target.value));
-                localStorage.setItem('formState', JSON.stringify({...shoppingFormState, username: e.target.value}));
-              }}
-            />
-            <FormGroup style={{justifyContent: 'space-between', maxWidth: '100%', margin: '0 auto'}}>
-              <div style={{width: '48%'}}>
-                <Header content='EMAIL'/>
-                <Form.Input
-                  style={{width: '100%'}} 
-                  placeholder='Nhập email'
-                  {...register('useremail', {required: true})}
-                  error={errors.useremail && 'Bắt buộc phải điền email'}
-                  onChange={(e) => {
-                    register('useremail').onChange(e);
-                    dispatch(setUserEmail(e.target.value));
-                    localStorage.setItem('formState', JSON.stringify({...shoppingFormState, useremail: e.target.value}));
-                  }}
-                />
-              </div>
-              <div style={{width: '48%'}}>
-                <Header content='SỐ ĐIỆN THOẠI'/>
-                <Form.Input
-                  style={{width: '100%'}}
-                  placeholder='Nhập số điện thoại'
-                  {...register('userphonenumber', {required: true})}
-                  error={errors.userphonenumber && 'Bắt buộc phải điền số điện thoại'}
-                  onChange={(e) => {
-                    register('userphonenumber').onChange(e);
-                    dispatch(setUserPhoneNumber(e.target.value));
-                    localStorage.setItem('formState', JSON.stringify({...shoppingFormState, userphonenumber: e.target.value}));
-                  }}
-                />
-              </div>
-            </FormGroup>
-            <Header content='ĐỊA CHỈ'/>
-            <Form.Input 
-              placeholder='Địa chỉ'
-              {...register('useraddress', {required: true})}
-              error={errors.useraddress && 'Bắt buộc phải điền địa chỉ'}
-              onChange={(e) => {
-                register('useraddress').onChange(e);
-                dispatch(setUserAddress(e.target.value));
-                localStorage.setItem('formState', JSON.stringify({...shoppingFormState, useraddress: e.target.value}));
-              }}
-            />
-            <ProvinceDropDownOption/>
-            <Header>GHI CHÚ ĐƠN HÀNG:</Header>
-              <Form.TextArea 
-                placeholder='Nhập ghi chú'
-                {...register('usernote', {required: false})}
-                onChange={(e) => {
-                  register('usernote').onChange(e);
-                  dispatch(setUsername(e.target.value));
-                  localStorage.setItem('formState', JSON.stringify({...shoppingFormState, usernote: e.target.value}));
-                }}
-              />
-          </Form>
-          <Divider/>
-        </Container>
+        <ShoppingFormPersonalInput register={register} errors={errors}/>
       </Grid.Column>
       <Grid.Column width={6}>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
