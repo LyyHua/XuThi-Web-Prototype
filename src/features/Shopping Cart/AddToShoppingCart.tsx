@@ -1,10 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Button, Icon, ModalContent, ModalDescription, Header, ModalActions, Image } from "semantic-ui-react";
-import { useAppDispatch } from "../../app/store/store";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { useNavigate } from "react-router-dom";
+import { createId } from "@paralleldrive/cuid2";
+import { setCheckoutId } from "../../app/store/CheckoutId";
 
 export default function AddToShoppingCart(props: any) {
 
-const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+
+  const checkoutId = useAppSelector(state => state.checkoutId);
+
+    useEffect(() => {
+        // Get the checkoutId from localStorage
+        const savedCheckoutId = localStorage.getItem('checkoutId');
+    
+        // If there's a saved checkoutId, use it
+        if (savedCheckoutId) {
+          dispatch(setCheckoutId(savedCheckoutId));
+        } else {
+          // Otherwise, generate a new checkoutId and save it in localStorage
+          const newCheckoutId = createId();
+          dispatch(setCheckoutId(newCheckoutId));
+          localStorage.setItem('checkoutId', newCheckoutId);
+        }
+      }, [dispatch]);
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [active, setActive] = useState<string | null>(null);
 
@@ -12,9 +36,7 @@ const [errorMessage, setErrorMessage] = useState<string | null>(null);
     setActive(size);
     setErrorMessage(null);
   };
-
-  const dispatch = useAppDispatch();
-
+  
   const [open, setOpen] = useState<Record<string, boolean>>({});
 
   const handleOpen = (id: string) => {
@@ -99,11 +121,32 @@ const [errorMessage, setErrorMessage] = useState<string | null>(null);
             }}
             />
             <Button
-            className="pay"
-            color='black'
-            inverted
-            style={{color: 'black', marginLeft: '3.5em', marginBottom: '1.5em', marginTop: '1em', marginRight: '2em'}}
-            content="THANH TOÁN NGAY"
+                className="pay"
+                color='black'
+                inverted
+                style={{color: 'black', marginLeft: '3.5em', marginBottom: '1.5em', marginTop: '1em', marginRight: '2em'}}
+                content="THANH TOÁN NGAY"
+                onClick={() => {
+                    if (active === null){
+                        setErrorMessage('Vui lòng chọn kích cỡ sản phẩm')
+                    }
+                    else{
+                        dispatch({
+                            type: 'productItem/addToCart', 
+                            payload: { 
+                                name: props.productitems.name, 
+                                id: props.productitems.id, 
+                                photoURL: props.productitems.photoURL, 
+                                amount: 1, 
+                                price: props.productitems.price, 
+                                description: props.productitems.description,
+                                size: active
+                            }
+                        });
+                        handleClose(props.productitems.id);
+                        navigate(`/thanhtoan/${checkoutId}`);
+                    }
+                }}
             />
         </ModalActions>
     </Modal>

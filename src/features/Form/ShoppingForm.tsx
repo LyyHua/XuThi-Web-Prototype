@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom"
-import { Button, Grid, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment } from "semantic-ui-react";
+import { Button, Form, FormRadio, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment, Image, Label, Radio, Container } from "semantic-ui-react";
 import { useAppSelector } from "../../app/store/store";
 import { useDispatch } from "react-redux";
 import ShoppingFormPersonalInput from "./ShoppingFormPersonalInput";
+import SimplifiedNavBar from "../../app/layout/simplifiednavbar/SimplifiedNavBar";
 
 export default function ShoppingForm() {
   
@@ -17,6 +18,10 @@ export default function ShoppingForm() {
   let {id} = useParams();
 
   const [value, setValue] = useState('');
+
+  const handleRadioChange = (e: any, { value }: any) => {
+    setValue(value);
+  };
 
   const [deliveryFee, setDeliveryFee] = useState<string | number>("--------");
 
@@ -38,7 +43,7 @@ export default function ShoppingForm() {
         setDeliveryFee(30000);
       }
     } else {
-      setDeliveryFee("-");
+      setDeliveryFee("--------");
     }
   }, [selectedCity, selectedDistrict, selectedWard]);
 
@@ -49,14 +54,38 @@ export default function ShoppingForm() {
   };
 
   return (
-    <Grid className="shoppingformfont" style={{marginTop: '4em', marginLeft: '4em', marginRight: '5em'}}>
+    <Grid className="shoppingformfont" style={{marginTop: '5em', marginLeft: '4em', marginRight: '5em'}}>
+      <SimplifiedNavBar/>
       <Grid.Column width={10} style={{paddingRight: '3em'}}>
         <ShoppingFormPersonalInput register={register} errors={errors}/>
+        <Form style={{paddingTop: '0.5em'}}>
+          <Header content="PHƯƠNG THỨC THANH TOÁN"/>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2em' }}>
+              <Radio
+                style={{scale: '1.1'}}
+                value="COD"
+                checked={value === 'COD'}
+                onChange={handleRadioChange}
+              />
+              <Image src="/COD.svg" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
+              <p>Thanh toán khi nhận hàng</p>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2em' }}>
+              <Radio
+                style={{scale: '1.1'}}
+                value="VietQR"
+                checked={value === 'VietQR'}
+                onChange={handleRadioChange}
+              />
+              <Image bordered src="/vietqr.svg" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
+              <p>Chuyển khoản qua mã QR</p>
+          </div>
+        </Form>
       </Grid.Column>
       <Grid.Column width={6}>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <h2 style={{margin: 0, padding: 0}}>Tóm tắt đơn hàng</h2>
-          <h2 style={{margin: 0, padding: 0}}>{totalWithDelivery}<u>đ</u></h2>
+          <h2 style={{margin: 0, padding: 0}}>{totalWithDelivery.toLocaleString()}<u>đ</u></h2>
         </div>
         <Segment placeholder>
           {cartItems.filter(item => item.checked).map((item, index) => (
