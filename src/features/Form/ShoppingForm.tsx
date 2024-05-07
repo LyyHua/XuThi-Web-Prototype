@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom"
-import { Button, Form, FormRadio, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment, Image, Label, Radio, Container } from "semantic-ui-react";
+import { useNavigate} from "react-router-dom"
+import { Button, Form, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment, Image, Radio } from "semantic-ui-react";
 import { useAppSelector } from "../../app/store/store";
-import { useDispatch } from "react-redux";
 import ShoppingFormPersonalInput from "./ShoppingFormPersonalInput";
-import SimplifiedNavBar from "../../app/layout/simplifiednavbar/SimplifiedNavBar";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../app/config/firebase";
 
 export default function ShoppingForm() {
-  
-  const dispatch = useDispatch();
+
+  const checkoutId = useAppSelector((state) => state.checkoutId);
 
   const {register, handleSubmit, formState: {errors} } = useForm({
     mode: 'onTouched',
   });
-
-  let {id} = useParams();
 
   const [value, setValue] = useState('');
 
@@ -49,8 +47,32 @@ export default function ShoppingForm() {
 
   const totalWithDelivery = total + (typeof deliveryFee === 'number' ? deliveryFee : 0);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    const checkedCartItems = cartItems.filter(item => item.checked).map(item => ({
+      "tên mẫu": item.name,
+      "size": item.size,
+      "số lượng": item.count,
+    }));
+    const userInformation = {
+      "Tên người mua": data.username,
+      "Email": data.useremail,
+      "Số điện thoại": data.userphonenumber,
+      "Địa chỉ": data.useraddress,
+      "Ghi chú": data.usernote,
+    }
+    const usersInformation = {
+      ...userInformation
+    }
+    const formDataWithLocation = {
+      "Thông tin người mua": usersInformation,
+      "Thành phố/quận/phường": {
+        "thành phố": selectedCity?.text,
+        "quận": selectedDistrict?.text,
+        "phường": selectedWard?.text,
+      },
+      "Giỏ hàng": checkedCartItems,
+    };
+    await setDoc(doc(db, "đơn hàng", checkoutId), formDataWithLocation);
   };
 
   return (
@@ -67,17 +89,18 @@ export default function ShoppingForm() {
                 onChange={handleRadioChange}
               />
               <Image src="/COD.svg" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
-              <p>Thanh toán khi nhận hàng</p>
+              <p>Thanh toán khi nhận hàng (COD)</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2em' }}>
               <Radio
+                disabled
                 style={{scale: '1.1'}}
                 value="VietQR"
                 checked={value === 'VietQR'}
                 onChange={handleRadioChange}
               />
               <Image bordered src="/vietqr.svg" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
-              <p>Chuyển khoản qua mã QR</p>
+              <p>Chuyển khoản qua mã QR (tạm thời đóng)</p>
           </div>
         </Form>
       </Grid.Column>

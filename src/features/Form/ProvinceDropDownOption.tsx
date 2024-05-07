@@ -40,7 +40,7 @@ export default function ProvinceDropDownOption() {
 
         if (selectedDistrict) {
           const wardResponse = await axios.get(`https://vapi.vnappmob.com/api/province/ward/${selectedDistrict.value.replace('district-', '')}`);
-          let wards = wardResponse.data.results.map((ward: any) => ({ value: 'ward-' + ward.ward_id, text: ward.ward_name }));
+          const wards = wardResponse.data.results.map((ward: any) => ({ value: 'ward-' + ward.ward_id, text: ward.ward_name }));
           if (wards.length === 0 && selectedDistrict) {
             wards.push({ value: selectedDistrict.value, text: selectedDistrict.text });
           }
@@ -52,7 +52,7 @@ export default function ProvinceDropDownOption() {
     };
 
     fetchOptions();
-  }, [selectedCity, selectedDistrict]);
+  }, [selectedCity, selectedDistrict, dispatch]);
 
   useEffect(() => {
     const storedCity = localStorage.getItem('city');
@@ -76,13 +76,13 @@ export default function ProvinceDropDownOption() {
       setSelectedWard(wardOption);
       dispatch(setWardInStore(wardOption));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setValue('city', selectedCity);
     setValue('district', selectedDistrict);
     setValue('ward', selectedWard);
-  }, [selectedCity, selectedDistrict, selectedWard, setValue]);
+  }, [selectedCity, selectedDistrict, selectedWard, setValue, dispatch]);
 
   return (
     <Container style={{display: 'flex', justifyContent: 'space-between'}}>

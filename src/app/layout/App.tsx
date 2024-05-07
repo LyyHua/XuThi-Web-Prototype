@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 import EmptyShoppingCart from "../../features/Empty Shopping Cart/EmptyShoppingCart";
 import SimplifiedNavBar from "./simplifiednavbar/SimplifiedNavBar";
 import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
+import { Suspense } from "react";
+import LoadingComponent from "./LoadingComponent";
 
 export default function App() {
 
@@ -22,25 +24,25 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={
-          <>
-            <NavBar />
-            <ImageCarousel image={CarouselData}/>
-            <ProductList product={ProductItems} />
-            <PageCredit />
-          </>
+            <Suspense fallback={<LoadingComponent/>}>
+                <NavBar />
+                <ImageCarousel image={CarouselData}/>
+                <ProductList product={ProductItems} />
+                <PageCredit />
+            </Suspense>
         }/>
         <Route path="/giohang" element={
-          <>
+          <Suspense fallback={<LoadingComponent/>}>
             <NavBar />
             {cartItems.length === 0 ? <EmptyShoppingCart/> : <ShoppingCartInfo/>}
             <PageCredit />
-          </>
+          </Suspense>
         }/>
         <Route path="/thanhtoan/:id" element={
-          <>
+          <Suspense fallback={<LoadingComponent/>}>
             <SimplifiedNavBar/>
             {(areAllItemsChecked && cartItems.length > 0) ? <ShoppingForm /> : <EmptyShoppingCart/>}
-          </>
+          </Suspense>
         }/>
       </Routes>
     </Router>

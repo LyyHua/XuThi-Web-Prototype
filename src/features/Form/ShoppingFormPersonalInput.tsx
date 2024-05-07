@@ -1,8 +1,8 @@
 import { Container, Header, Form, FormGroup, Divider } from "semantic-ui-react";
 import ProvinceDropDownOption from "./ProvinceDropDownOption";
-import { useAppSelector, useAppDispatch, store } from "../../app/store/store";
-import { FieldErrors, FieldValues, useForm, UseFormRegister } from "react-hook-form";
-import ShoppingFormInput, { setUsername, setUserEmail, setUserPhoneNumber, setUserAddress, setUserNote } from "../../app/store/ShoppingFormInput";
+import { useAppSelector, useAppDispatch } from "../../app/store/store";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { setUsername, setUserEmail, setUserPhoneNumber, setUserAddress, setUserNote } from "../../app/store/ShoppingFormInput";
 import { useEffect } from "react";
 
 type Props = {
@@ -35,7 +35,7 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
         localStorage.setItem('formState', JSON.stringify(shoppingFormState));
     }, [shoppingFormState]);
     
-    const handleInputChange = (e: any, action: any, field: any) => {
+    const handleInputChange = (e: any, action: any) => {
         const newValue = e.target.value;
         dispatch(action(newValue));
     };
@@ -49,7 +49,7 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                     placeholder='Nhập họ và tên'
                     {...registerProp('username', {required: true})}
                     error={errorsProp.username && 'Bắt buộc phải điền tên'}
-                    onChange={(e) => handleInputChange(e, setUsername, 'username')}
+                    onChange={(e) => handleInputChange(e, setUsername)}
                     value={shoppingFormState.username || ''}
                 />
                 <FormGroup style={{justifyContent: 'space-between', maxWidth: '100%', margin: '0 auto', paddingBottom: '1.2em'}}>
@@ -60,7 +60,7 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                             placeholder='Nhập email'
                             {...registerProp('useremail', {required: true})}
                             error={errorsProp.useremail && 'Bắt buộc phải điền email'}
-                            onChange={(e) => handleInputChange(e, setUserEmail, 'useremail')}
+                            onChange={(e) => handleInputChange(e, setUserEmail)}
                             value={shoppingFormState.useremail || ''}
                         />
                     </div>
@@ -71,7 +71,7 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                             placeholder='Nhập số điện thoại'
                             {...registerProp('userphonenumber', {required: true})}
                             error={errorsProp.userphonenumber && 'Bắt buộc phải điền số điện thoại'}
-                            onChange={(e) => handleInputChange(e, setUserPhoneNumber, 'userphonenumber')}
+                            onChange={(e) => handleInputChange(e, setUserPhoneNumber)}
                             value={shoppingFormState.userphonenumber || ''}
                         />
                     </div>
@@ -82,14 +82,14 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                     placeholder='Địa chỉ'
                     {...registerProp('useraddress', {required: true})}
                     error={errorsProp.useraddress && 'Bắt buộc phải điền địa chỉ'}
-                    onChange={(e) => handleInputChange(e, setUserAddress, 'useraddress')}
+                    onChange={(e) => handleInputChange(e, setUserAddress)}
                     value={shoppingFormState.useraddress || ''}
                 />
                 <Header style={{fontFamily: "Montserrat, sans-serif"}}>GHI CHÚ ĐƠN HÀNG:</Header>
                 <Form.TextArea 
                     placeholder='Nhập ghi chú'
                     {...registerProp('usernote', {required: false})}
-                    onChange={(e) => handleInputChange(e, setUserNote, 'usernote')}
+                    onChange={(e) => handleInputChange(e, setUserNote)}
                     value={shoppingFormState.usernote || ''}
                 />
             </Form>

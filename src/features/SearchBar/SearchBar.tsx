@@ -1,4 +1,4 @@
-import _, { result } from 'lodash';
+import _ from 'lodash';
 import React from 'react';
 import { Grid, Search, Image } from 'semantic-ui-react';
 import { ProductItems } from '../Product/ProductItems';
@@ -35,7 +35,7 @@ function SearchBar() {
     clearTimeout(timeoutRef.current);
     dispatch({ type: 'START_SEARCH', query: data.value });
 
-    timeoutRef.current = setTimeout(() => {
+    timeoutRef.current = window.setTimeout(() => {
       if (data.value.length === 0) {
         dispatch({ type: 'CLEAN_QUERY' });
         return;
@@ -62,7 +62,7 @@ function SearchBar() {
 
   React.useEffect(() => {
     return () => {
-      clearTimeout(timeoutRef.current);
+      window.clearTimeout(timeoutRef.current);
     };
   }, []);
 
