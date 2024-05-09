@@ -94,26 +94,25 @@ export default function ShoppingForm() {
       localStorage.clear();
       navigate('/hoanthanh');
     }
-    else{
-      const items = checkedCartItems.map(item => ({
-        name: item["tên mẫu"],
-        price: item["giá"],
-        quantity: item["số lượng"],
-      }));
-      console.log(items);
-      // const requestData = {
-      //   orderCode: randomOrderCode,
-      //   amount: totalWithDelivery,
-      //   items: items,
-      //   description: "Thanh toán đơn hàng",
-      //   cancelUrl: "http://localhost:3000/thanhtoanthatbai",
-      //   returnUrl: "http://localhost:3000/thanhtoanthanhcong",
-      // }
+    // else{
+    //   const items = checkedCartItems.map(item => ({
+    //     name: item["tên mẫu"],
+    //     price: item["giá"],
+    //     quantity: item["số lượng"],
+    //   }));
+    //   console.log(items);
+    //   // const requestData = {
+    //   //   orderCode: randomOrderCode,
+    //   //   amount: totalWithDelivery,
+    //   //   items: items,
+    //   //   description: "Thanh toán đơn hàng",
+    //   //   cancelUrl: "http://localhost:3000/thanhtoanthatbai",
+    //   //   returnUrl: "http://localhost:3000/thanhtoanthanhcong",
+    //   // }
 
-      // const paymentLinkData = await payos.createPaymentLink(requestData);
-      // window.location.href = paymentLinkData.paymentLinkId;
-    }
-    
+    //   // const paymentLinkData = await payos.createPaymentLink(requestData);
+    //   // window.location.href = paymentLinkData.paymentLinkId;
+    // }
   };
 
   return (
