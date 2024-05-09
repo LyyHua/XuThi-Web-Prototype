@@ -58,7 +58,7 @@ export default function ShoppingForm() {
   const onSubmit = async (data: any) => {
     if(!value){
       alert("Vui lòng chọn phương thức thanh toán");
-      return;
+    return;
     }
     const checkedCartItems = cartItems.filter(item => item.checked).map(item => ({
       "tên mẫu": item.name,
