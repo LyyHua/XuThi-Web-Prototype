@@ -13,6 +13,8 @@ import { resetCheckoutId } from "../../app/store/CheckoutId";
 
 export default function ShoppingForm() {
 
+  //Thanks
+
   const checkoutId = useAppSelector((state) => state.checkoutId);
 
   const {register, handleSubmit, formState: {errors} } = useForm({
