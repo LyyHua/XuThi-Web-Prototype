@@ -31,7 +31,7 @@ function SearchBar() {
   const { loading, results, value } = state;
 
   const timeoutRef = React.useRef<number>();
-  const handleSearchChange = React.useCallback((_: any, data: any) => {
+  const handleSearchChange = React.useCallback((data: any) => {
     clearTimeout(timeoutRef.current);
     dispatch({ type: 'START_SEARCH', query: data.value });
 
