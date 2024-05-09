@@ -54,6 +54,18 @@ export default function App() {
             <PageCredit />
           </>
         }/>
+        <Route path="/sanpham/:id" element={
+          <>
+            <NavBar/>
+            <PageCredit/>
+          </>
+        }/>
+        <Route path="/thanhtoanthatbai" element={
+          <>
+            <SimplifiedNavBar/>
+            <EmptyShoppingCart/>
+          </>
+        }/>
         <Route path="/thanhtoan/:id" element={
           <>
             <SimplifiedNavBar/>

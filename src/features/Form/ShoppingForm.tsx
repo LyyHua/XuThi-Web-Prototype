@@ -19,7 +19,7 @@ export default function ShoppingForm() {
     mode: 'onTouched',
   });
 
-  const [value, setValue] = useState('COD');
+  const [value, setValue] = useState('');
 
   const handleRadioChange = (_: any, { value }: any) => {
     setValue(value);
@@ -42,7 +42,7 @@ export default function ShoppingForm() {
   useEffect(() => {
     if (selectedCity && selectedDistrict && selectedWard) {
       if (selectedCity.value === 'city-79') {
-        setDeliveryFee(0);
+        setDeliveryFee(25000);
       } else {
         setDeliveryFee(30000);
       }
@@ -54,10 +54,15 @@ export default function ShoppingForm() {
   const totalWithDelivery = total + (typeof deliveryFee === 'number' ? deliveryFee : 0);
 
   const onSubmit = async (data: any) => {
+    if(!value){
+      alert("Vui lòng chọn phương thức thanh toán");
+      return;
+    }
     const checkedCartItems = cartItems.filter(item => item.checked).map(item => ({
       "tên mẫu": item.name,
       "size": item.size,
       "số lượng": item.count,
+      "giá": item.price,
     }));
     const userInformation = {
       "Tên người mua": data.username,
@@ -80,13 +85,35 @@ export default function ShoppingForm() {
       "Tổng tiền": totalWithDelivery.toLocaleString() + 'đ',
       
     };
-    await setDoc(doc(db, "đơn hàng", checkoutId), formDataWithLocation);
-    dispatch(resetCartItems());
-    dispatch(resetShoppingFormState());
-    dispatch(resetProvince());
-    dispatch(resetCheckoutId());
-    localStorage.clear();
-    navigate('/hoanthanh');
+    if (value === 'COD'){
+      await setDoc(doc(db, "đơn hàng", checkoutId), formDataWithLocation);
+      dispatch(resetCartItems());
+      dispatch(resetShoppingFormState());
+      dispatch(resetProvince());
+      dispatch(resetCheckoutId());
+      localStorage.clear();
+      navigate('/hoanthanh');
+    }
+    else{
+      const items = checkedCartItems.map(item => ({
+        name: item["tên mẫu"],
+        price: item["giá"],
+        quantity: item["số lượng"],
+      }));
+      console.log(items);
+      // const requestData = {
+      //   orderCode: randomOrderCode,
+      //   amount: totalWithDelivery,
+      //   items: items,
+      //   description: "Thanh toán đơn hàng",
+      //   cancelUrl: "http://localhost:3000/thanhtoanthatbai",
+      //   returnUrl: "http://localhost:3000/thanhtoanthanhcong",
+      // }
+
+      // const paymentLinkData = await payos.createPaymentLink(requestData);
+      // window.location.href = paymentLinkData.paymentLinkId;
+    }
+    
   };
 
   return (
@@ -107,14 +134,13 @@ export default function ShoppingForm() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2em' }}>
               <Radio
-                disabled
                 style={{scale: '1.1'}}
                 value="VietQR"
                 checked={value === 'VietQR'}
                 onChange={handleRadioChange}
               />
               <Image bordered src="/vietqr.svg" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
-              <p>Chuyển khoản qua mã QR (tạm thời đóng)</p>
+              <p>Chuyển khoản qua mã QR</p>
           </div>
         </Form>
       </Grid.Column>
