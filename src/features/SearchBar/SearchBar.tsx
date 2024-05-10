@@ -36,7 +36,7 @@ function SearchBar() {
     dispatch({ type: 'START_SEARCH', query: data.value });
 
     timeoutRef.current = window.setTimeout(() => {
-      if (data.value.length === 0) {
+      if (data && data.value && data.value.length === 0) {
         dispatch({ type: 'CLEAN_QUERY' });
         return;
       }

@@ -11,15 +11,13 @@ import { resetCartItems } from "../Product/ProductItemSlices";
 import { resetShoppingFormState } from "../../app/store/ShoppingFormInput";
 import { resetCheckoutId } from "../../app/store/CheckoutId";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import { FirebaseError } from "firebase/app";
 
-interface PaymentLinkResponse {
-  paymentLink: string;
-}
-
-interface FirebaseError {
-  code: string;
-  message: string;
-  details: string;
+interface PaymentLink {
+  checkoutUrl: string;
+  orderCode: number;
+  paymentLinkId: string;
+  // include other properties if they exist
 }
 
 export default function ShoppingForm() {
@@ -127,18 +125,26 @@ export default function ShoppingForm() {
         const result = await createPaymentLink({ amount: totalWithDelivery });
     
         // Read result of the Cloud Function.
-        const paymentLink = (result.data as PaymentLinkResponse).paymentLink;
-    
-        // Ensure paymentLink is a string before using it as a URL
-        if (typeof paymentLink === 'string') {
-          window.location.href = paymentLink;
+        const paymentLink = result.data as PaymentLink;
+        
+        // Ensure paymentLink is an object before extracting checkoutUrl
+        if (typeof paymentLink === 'object' && paymentLink !== null) {
+          const checkoutUrl = paymentLink.checkoutUrl;
+          if (typeof checkoutUrl === 'string') {
+            localStorage.setItem('tempCartItems', JSON.stringify(formDataWithLocation));
+            localStorage.setItem('checkOrderCode', JSON.stringify(paymentLink.orderCode));
+            localStorage.setItem('checkPaymentLinkId', JSON.stringify(paymentLink.paymentLinkId));
+            window.location.href = checkoutUrl;
+          } else {
+            console.error('Error: checkoutUrl is not a string', checkoutUrl);
+          }
         } else {
-          console.error('Error: paymentLink is not a string', paymentLink);
+          console.error('Error: paymentLink is not an object', paymentLink);
         }
       } catch (error) {
         // Getting the Error details.
-        const { code, message, details } = error as FirebaseError;
-        console.error(`Error calling createPaymentLink: ${code} - ${message}`, details);
+        const { code, message } = error as FirebaseError;
+        console.error(`Error calling createPaymentLink: ${code} - ${message}`);
       }
     }
   };

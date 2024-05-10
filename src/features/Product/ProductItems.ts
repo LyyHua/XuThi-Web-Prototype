@@ -6,7 +6,7 @@ export const ProductItems = [
         photoURL: '/Juva-1.jpg',
         photoURL2: '/Juva-12.jpg',
         size: ['S', 'M', 'L', 'XL'],
-        price: 30000,
+        price: 1000,
     },
     {
         id: '2',
