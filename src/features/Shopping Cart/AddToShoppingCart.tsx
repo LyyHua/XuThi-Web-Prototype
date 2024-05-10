@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Modal, Button, Icon, ModalContent, ModalDescription, Header, ModalActions, Image } from "semantic-ui-react";
-import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
 
 export default function AddToShoppingCart(props: any) {
 

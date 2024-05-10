@@ -10,10 +10,10 @@ import ShoppingForm from "../../features/Form/ShoppingForm";
 import { useDispatch, useSelector } from "react-redux";
 import EmptyShoppingCart from "../../features/Empty Shopping Cart/EmptyShoppingCart";
 import SimplifiedNavBar from "./simplifiednavbar/SimplifiedNavBar";
-import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
 import FinishShopping from "../../features/FinishShopping/FinishShopping";
 import { createId } from "@paralleldrive/cuid2";
 import { useEffect } from "react";
+import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
 import { setCheckoutId } from "../store/CheckoutId";
 
 export default function App() {
