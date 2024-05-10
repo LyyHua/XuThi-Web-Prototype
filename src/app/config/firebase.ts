@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getFirestore } from "firebase/firestore";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -29,3 +30,5 @@ initializeAppCheck(app, {
 })
 
 export const db = getFirestore(app);
+export const functions = getFunctions(app);
+export const createPaymentLink = httpsCallable(functions, 'createPaymentLink');

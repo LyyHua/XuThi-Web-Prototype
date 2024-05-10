@@ -10,10 +10,22 @@ import { resetProvince } from "../../app/store/Province";
 import { resetCartItems } from "../Product/ProductItemSlices";
 import { resetShoppingFormState } from "../../app/store/ShoppingFormInput";
 import { resetCheckoutId } from "../../app/store/CheckoutId";
+import { getFunctions, httpsCallable } from "firebase/functions";
+
+interface PaymentLinkResponse {
+  paymentLink: string;
+}
+
+interface FirebaseError {
+  code: string;
+  message: string;
+  details: string;
+}
 
 export default function ShoppingForm() {
 
-  //Thanks
+  const functionsInstance = getFunctions();
+  const createPaymentLink = httpsCallable(functionsInstance, 'createPaymentLink');
 
   const checkoutId = useAppSelector((state) => state.checkoutId);
 
@@ -25,6 +37,20 @@ export default function ShoppingForm() {
 
   const handleRadioChange = (_: any, { value }: any) => {
     setValue(value);
+    if (value === 'VietQR') {
+      setDeliveryFee(0);
+    } else {
+      // Reset the delivery fee when other options are selected
+      if (selectedCity && selectedDistrict && selectedWard) {
+        if (selectedCity.value === 'city-79') {
+          setDeliveryFee(25000);
+        } else {
+          setDeliveryFee(30000);
+        }
+      } else {
+        setDeliveryFee("--------");
+      }
+    }
   };
 
   const dispatch = useAppDispatch();
@@ -42,16 +68,16 @@ export default function ShoppingForm() {
   const selectedWard = useAppSelector((state) => state.province.selectedWard);
 
   useEffect(() => {
-    if (selectedCity && selectedDistrict && selectedWard) {
+    if (value !== 'VietQR' && selectedCity && selectedDistrict && selectedWard) {
       if (selectedCity.value === 'city-79') {
         setDeliveryFee(25000);
       } else {
         setDeliveryFee(30000);
       }
-    } else {
+    } else if (value !== 'VietQR') {
       setDeliveryFee("--------");
     }
-  }, [selectedCity, selectedDistrict, selectedWard]);
+  }, [selectedCity, selectedDistrict, selectedWard, value]);
 
   const totalWithDelivery = total + (typeof deliveryFee === 'number' ? deliveryFee : 0);
 
@@ -96,25 +122,25 @@ export default function ShoppingForm() {
       localStorage.clear();
       navigate('/hoanthanh');
     }
-    // else{
-    //   const items = checkedCartItems.map(item => ({
-    //     name: item["tên mẫu"],
-    //     price: item["giá"],
-    //     quantity: item["số lượng"],
-    //   }));
-    //   console.log(items);
-    //   // const requestData = {
-    //   //   orderCode: randomOrderCode,
-    //   //   amount: totalWithDelivery,
-    //   //   items: items,
-    //   //   description: "Thanh toán đơn hàng",
-    //   //   cancelUrl: "http://localhost:3000/thanhtoanthatbai",
-    //   //   returnUrl: "http://localhost:3000/thanhtoanthanhcong",
-    //   // }
-
-    //   // const paymentLinkData = await payos.createPaymentLink(requestData);
-    //   // window.location.href = paymentLinkData.paymentLinkId;
-    // }
+    else if(value === 'VietQR'){
+      try {
+        const result = await createPaymentLink({ amount: totalWithDelivery });
+    
+        // Read result of the Cloud Function.
+        const paymentLink = (result.data as PaymentLinkResponse).paymentLink;
+    
+        // Ensure paymentLink is a string before using it as a URL
+        if (typeof paymentLink === 'string') {
+          window.location.href = paymentLink;
+        } else {
+          console.error('Error: paymentLink is not a string', paymentLink);
+        }
+      } catch (error) {
+        // Getting the Error details.
+        const { code, message, details } = error as FirebaseError;
+        console.error(`Error calling createPaymentLink: ${code} - ${message}`, details);
+      }
+    }
   };
 
   return (
