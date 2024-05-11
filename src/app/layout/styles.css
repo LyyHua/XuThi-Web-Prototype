@@ -166,27 +166,10 @@
 .shoppingformpersonalinput{
   font-family: "Montserrat", sans-serif !important;
 }
-
-/* ProductListItems.css */
-
-.image-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
+.ui.fade.reveal {
+  z-index: 1;
 }
 
-.product-image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transition: opacity 0.65s;
-}
-
-.fade-in {
-  opacity: 1;
-}
-
-.fade-out {
-  opacity: 0;
+.ui.circular.button.shoppingcartcircle {
+  z-index: 2;
 }
