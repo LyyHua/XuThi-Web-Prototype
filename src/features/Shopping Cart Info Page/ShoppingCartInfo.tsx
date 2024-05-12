@@ -69,31 +69,31 @@ export default function ShoppingCartInfo() {
   }, [dispatch]);
 
   return (
-    <Container style={{paddingTop: '8vh'}}>
-      <Container style={{display: 'flex', alignItems: 'center'}}>
-        <Checkbox style={{marginRight: '1vw', paddingTop: '1em'}} checked={areAllItemsChecked} onChange={() => dispatch(toggleAllItemsChecked())} />
+    <Container className="container-padding-top">
+      <Container className="container-flex-align">
+        <Checkbox className="checkbox-margin-right" checked={areAllItemsChecked} onChange={() => dispatch(toggleAllItemsChecked())} />
         <h1 style={{fontFamily:'Montserrat, sans-serif'}}>Tất cả sản phẩm trong giỏ hàng</h1>
       </Container>
       <Grid>
-        <Grid.Column width={10} style={{marginBottom: '5vh'}}> 
+        <Grid.Column computer={10} mobile={16} className="grid-column-margin-bottom"> 
         <Divider />
           <ItemGroup divided>
             {cartItems.map((item, index) => {
               return (
                 <Item key={item.id}>
                   <Checkbox
-                    style={{marginRight: '1.8em', marginTop: '0.5em'}} 
-                    checked={item.checked} 
+                    className="checkbox-item-margin"
+                    checked={item.checked}
                     onChange={() => handleCheckboxChange(index)} />
-                  <ItemImage size='small' src={item.photoURL} alt={item.id} style={{scale: '1.2', marginTop: '0.8em', marginRight: '1em'}}  />
-                  <ItemContent verticalAlign="middle">
-                    <ItemHeader content={item.name} />
-                    <ItemDescription>
-                      <p>{item.description}</p>
-                      <p>Số lượng: {item.count}</p>
-                      <p>Kích cỡ: {item.size}</p>
-                      <p><strong>{item.price.toLocaleString()}<u>đ</u></strong></p>
-                      <Button icon='trash' onClick={() => dispatch({ type: 'productItem/clearitem', payload: { id: item.id, size: item.size } })} />
+                  <ItemImage size='small' src={item.photoURL} alt={item.id} className="item-image-style"  />
+                  <ItemContent className="item-content">
+                    <ItemHeader className="item-header" style={{fontFamily:'Montserrat, sans-serif'}} content={item.name} />
+                    <ItemDescription className="item-description">
+                      <p style={{fontFamily:'Montserrat, sans-serif'}}>{item.description}</p>
+                      <p style={{fontFamily:'Montserrat, sans-serif'}}>Số lượng: {item.count}</p>
+                      <p style={{fontFamily:'Montserrat, sans-serif'}}>Kích cỡ: {item.size}</p>
+                      <p style={{fontFamily:'Montserrat, sans-serif'}}><strong>{item.price.toLocaleString()}<u>đ</u></strong></p>
+                      <Button style={{marginLeft: '-0.2em'}} icon='trash' onClick={() => dispatch({ type: 'productItem/clearitem', payload: { id: item.id, size: item.size } })} />
                       <Button content='-' onClick={() => dispatch({ type: 'productItem/decrementCount', payload: { id: item.id, size: item.size } })} />
                       <Input
                         className="shopping-cart-input"
@@ -113,18 +113,22 @@ export default function ShoppingCartInfo() {
               )
             })}
           </ItemGroup>
+          <Divider />
         </Grid.Column>
-        <Grid.Column width={6}>
-            <h1>Tạm tính</h1>
-            <h3>{cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString()}<u>đ</u></h3>
-            <Button onClick={() => navigate('/')}>Tiếp tục mua sắm</Button>
-            <Button
-             onClick={() => {
-              navigate(`/thanhtoan/${checkoutId}`);
-             }}
-             style={{fontFamily:'Montserrat, sans-serif'}} 
-             color="black">Thanh toán
-            </Button>
+        <Grid.Column style={{marginBottom: '2em'}} computer={6} mobile={16}>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1em', marginLeft: '1em' }}>
+            <h2 style={{ fontFamily: 'Montserrat', margin: 0, marginRight: '10px' }}>Tạm tính:</h2>
+            <h3 style={{ margin: 0, fontFamily: 'Montserrat', marginTop: '0.2em'}}>{cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString()}<u>đ</u></h3>
+          </div>
+          <Button className="continue-buying" onClick={() => navigate('/')}>Tiếp tục mua sắm</Button>
+          <Button
+            className="checkout-button"
+            onClick={() => {
+            navigate(`/thanhtoan/${checkoutId}`);
+            }}
+            style={{fontFamily:'Montserrat, sans-serif'}} 
+            color="black">Thanh toán
+          </Button>
         </Grid.Column>
       </Grid>
     </Container>

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Image, Container } from "semantic-ui-react";
 
-export default function EmptyShoppingCart() {
+export default function CancelPayment() {
     const navigate = useNavigate();
 
     useEffect(() => {

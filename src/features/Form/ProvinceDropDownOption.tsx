@@ -85,7 +85,7 @@ export default function ProvinceDropDownOption() {
   }, [selectedCity, selectedDistrict, selectedWard, setValue, dispatch]);
 
   return (
-    <Container style={{display: 'flex', justifyContent: 'space-between'}}>
+    <Container className="province-container">
         <Controller
             name="city"
             control={control}

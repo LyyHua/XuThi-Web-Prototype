@@ -10,7 +10,7 @@ type Props = {
     errors: FieldErrors<FieldValues>;
 }
 
-export default function ShoppingFormPersonalInput({register: registerProp, errors: errorsProp}: Props) {
+export default function  ShoppingFormPersonalInput({register: registerProp, errors: errorsProp}: Props) {
 
     const shoppingFormState = useAppSelector((state) => state.shoppingFormState);
     const dispatch = useAppDispatch();
@@ -42,9 +42,9 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
 
     return (
         <Container className="shoppingformpersonalinput">
-            <Header style={{marginBottom: '1.2em'}} content='THÔNG TIN ĐƠN HÀNG'/>
+            <Header className="input-header" style={{marginBottom: '1.2em'}} content='THÔNG TIN ĐƠN HÀNG'/>
             <Form>
-                <Header style={{fontFamily: "Montserrat, sans-serif"}} content='HỌ VÀ TÊN'/>
+                <Header className="input-header" style={{fontFamily: "Montserrat, sans-serif"}} content='HỌ VÀ TÊN'/>
                 <Form.Input
                     placeholder='Nhập họ và tên'
                     {...registerProp('username', {required: true})}
@@ -53,9 +53,10 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                     value={shoppingFormState.username || ''}
                 />
                 <FormGroup style={{justifyContent: 'space-between', maxWidth: '100%', margin: '0 auto', paddingBottom: '1.2em'}}>
-                    <div style={{width: '48%'}}>
-                        <Header style={{fontFamily: "Montserrat, sans-serif"}} content='EMAIL'/>
+                    <div className="responsive-div">
+                        <Header className="input-header" style={{fontFamily: "Montserrat, sans-serif"}} content='EMAIL'/>
                         <Form.Input
+                            className="emailinput"
                             style={{width: '100%'}} 
                             placeholder='Nhập email'
                             {...registerProp('useremail', {
@@ -70,8 +71,8 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                             value={shoppingFormState.useremail || ''}
                         />
                     </div>
-                    <div style={{width: '48%'}}>
-                        <Header style={{fontFamily: "Montserrat, sans-serif"}} content='SỐ ĐIỆN THOẠI'/>
+                    <div className="responsive-div">
+                        <Header className="input-header" style={{fontFamily: "Montserrat, sans-serif"}} content='SỐ ĐIỆN THOẠI'/>
                         <Form.Input
                             style={{width: '100%'}}
                             placeholder='Nhập số điện thoại'
@@ -89,7 +90,7 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                     </div>
                 </FormGroup>
                 <ProvinceDropDownOption/>
-                <Header style={{fontFamily: "Montserrat, sans-serif", marginTop: '0 auto'}} content='ĐỊA CHỈ'/>
+                <Header className="input-address input-header" style={{fontFamily: "Montserrat, sans-serif", marginTop: 0}} content='ĐỊA CHỈ'/>
                 <Form.Input 
                     placeholder='Địa chỉ'
                     {...registerProp('useraddress', {required: true})}
@@ -97,7 +98,7 @@ export default function ShoppingFormPersonalInput({register: registerProp, error
                     onChange={(e) => handleInputChange(e, setUserAddress)}
                     value={shoppingFormState.useraddress || ''}
                 />
-                <Header style={{fontFamily: "Montserrat, sans-serif"}}>GHI CHÚ ĐƠN HÀNG:</Header>
+                <Header className="input-note input-header" style={{fontFamily: "Montserrat, sans-serif"}}>GHI CHÚ ĐƠN HÀNG:</Header>
                 <Form.TextArea 
                     placeholder='Nhập ghi chú'
                     {...registerProp('usernote', {required: false})}

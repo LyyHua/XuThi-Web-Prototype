@@ -5,7 +5,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 1',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-1.jpg?alt=media&token=b38fd3b2-edf3-4277-87d8-7b4b0fb62f56',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-12.jpg?alt=media&token=e96193e5-e7d9-4a1a-ba70-f50849b4f165',
-        size: ['S', 'M', 'L', 'XL'],
+        size: ['35', '36', '37', '38', '39'],
         price: 480000,
     },
     {
@@ -14,7 +14,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 2',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-2.jpg?alt=media&token=9d2eec14-b2be-43c0-b50a-712e46693902',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-15.jpg?alt=media&token=1e110646-6fd2-4634-ac0a-276b96374fb9',
-        size: ['41', '42', '43', '44'],
+        size: ['35', '36', '37', '38', '39'],
         price: 410000,
     },
     {
@@ -23,7 +23,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 3',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-3.jpg?alt=media&token=5afa247e-412a-4695-8be4-14d462d95b7e',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-16.jpg?alt=media&token=a9b6fb01-ad89-4dc2-b1ac-d01aafb83db5',
-        size: ['S', 'M', 'L', 'XL'],
+        size: ['35', '36', '37', '38', '39'],
         price: 450000,
     },
     {
@@ -32,7 +32,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 4',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-4.jpg?alt=media&token=1684294e-fe27-4afd-9a82-c5c03ca97902',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-14.jpg?alt=media&token=0b1f8c15-a3c9-4b57-ab73-33d998534544',
-        size: ['41', '42', '43', '44'],
+        size: ['35', '36', '37', '38', '39'],
         price: 410000,
     },
     {
@@ -41,7 +41,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 5',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-5.jpg?alt=media&token=9009ba11-c080-4211-b8b8-bc1a1ce8b00a',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-13.jpg?alt=media&token=c9dd9dda-fe41-4ca9-a3bf-0bc708ec2201',
-        size: ['S', 'M', 'L', 'XL'],
+        size: ['35', '36', '37', '38', '39'],
         price: 410000,
     },
     {
@@ -50,7 +50,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 6',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-6.jpg?alt=media&token=9a16c8db-4f5e-474f-9ad2-95f336863834',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-11.jpg?alt=media&token=7e585b8b-feb7-4e23-abe9-8e34aa46b531',
-        size: ['S', 'M', 'L', 'XL'],
+        size: ['35', '36', '37', '38', '39'],
         price: 470000,
     },
     {
@@ -59,7 +59,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 7',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-7.jpg?alt=media&token=f78cd442-b180-4dba-ab28-a932782eb12f',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-17.jpg?alt=media&token=d3d79ab1-dfbc-407b-97d6-ed680b47161a',
-        size: ['S', 'M', 'L', 'XL'],
+        size: ['35', '36', '37', '38', '39'],
         price: 490000,
     },
     {
@@ -68,7 +68,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 8',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-8.jpg?alt=media&token=755a64ef-393a-4b16-881b-fdf9693aaa5b',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-18.jpg?alt=media&token=aec88c3c-728f-4f17-814a-abaeb8e19ca2',
-        size: ['S', 'M', 'L', 'XL'],
+        size: ['35', '36', '37', '38', '39'],
         price: 450000,
     },
     {
@@ -77,7 +77,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 9',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-9.jpg?alt=media&token=db090e4b-be9b-4be4-9190-c11592efdaa6',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-20.jpg?alt=media&token=d41bf132-c52c-43aa-ad91-14c2ff6b9546',
-        size: ['S', 'M', 'L', 'XL'],
+        size: ['35', '36', '37', '38', '39'],
         price: 430000,
     },
     {
@@ -86,7 +86,7 @@ export const ProductItems = [
         description: 'Mô tả mẫu 10',
         photoURL: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-10.jpg?alt=media&token=14e0e923-e540-4094-8b80-8080e5e68069',
         photoURL2: 'https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/Juva-19.jpg?alt=media&token=93eb3237-209e-4a79-9693-381686d1bd13',
-        size: ['S', 'M', 'L', 'XL'],
+        size: ['35', '36', '37', '38', '39'],
         price: 430000,
     },
 ]

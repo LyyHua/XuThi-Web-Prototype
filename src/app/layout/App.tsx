@@ -15,6 +15,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { useEffect } from "react";
 import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
 import { setCheckoutId } from "../store/CheckoutId";
+import CancelPayment from "../../features/Cancel Payment/CancelPayment";
 
 export default function App() {
 
@@ -63,7 +64,7 @@ export default function App() {
         <Route path="/thanhtoanthatbai" element={
           <>
             <SimplifiedNavBar/>
-            <EmptyShoppingCart/>
+            <CancelPayment/>
           </>
         }/>
         <Route path="/thanhtoan/:id" element={

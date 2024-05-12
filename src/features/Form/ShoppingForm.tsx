@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate} from "react-router-dom"
-import { Button, Form, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment, Image, Radio } from "semantic-ui-react";
+import { Button, Form, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment, Image, Radio, Divider } from "semantic-ui-react";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import ShoppingFormPersonalInput from "./ShoppingFormPersonalInput";
 import { doc, setDoc } from "firebase/firestore";
@@ -128,13 +128,15 @@ export default function ShoppingForm() {
           price: item.price,
         }));
         const buyerAddress = `${data.useraddress}, ${selectedWard?.text}, ${selectedDistrict?.text}, ${selectedCity?.text}`;
+        const userInformation = {
+          name: `Tên: ${data.username}, SĐT: ${data.userphonenumber}, Email: ${data.useremail}, Địa chỉ: ${buyerAddress}`,
+          quantity: 1,
+          price: 0,
+        }
+        VietQRCartItems.push(userInformation);
         const result = await createPaymentLink({ 
           amount: totalWithDelivery,
           items: VietQRCartItems,
-          buyerName: data.username,
-          buyerEmail: data.useremail,
-          buyerPhone: data.userphonenumber,
-          buyerAddress: buyerAddress,
           buyerNote: data.usernote,
         });
 
@@ -145,12 +147,12 @@ export default function ShoppingForm() {
         if (typeof paymentLink === 'object' && paymentLink !== null) {
           const checkoutUrl = paymentLink.checkoutUrl;
           if (typeof checkoutUrl === 'string') {
+            window.location.href = checkoutUrl;
             dispatch(resetCartItems());
             dispatch(resetShoppingFormState());
             dispatch(resetProvince());
             dispatch(resetCheckoutId());
             localStorage.clear();
-            window.location.href = checkoutUrl;
           } else {
             console.error('Error: checkoutUrl is not a string', checkoutUrl);
           }
@@ -167,9 +169,9 @@ export default function ShoppingForm() {
 
   return (
     <Grid className="shoppingformfont" style={{marginTop: '5em', marginLeft: '4em', marginRight: '5em'}}>
-      <Grid.Column width={10} style={{paddingRight: '3em'}}>
+      <Grid.Column mobile={16} computer={10} style={{paddingRight: '3em'}}>
         <ShoppingFormPersonalInput register={register} errors={errors}/>
-        <Form style={{paddingTop: '0.5em'}}>
+        <Form className="radio-form" style={{paddingTop: '0.5em'}}>
           <Header style={{fontFamily: 'Montserrat, sans-serif'}} content="PHƯƠNG THỨC THANH TOÁN"/>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2em' }}>
               <Radio
@@ -193,18 +195,19 @@ export default function ShoppingForm() {
           </div>
         </Form>
       </Grid.Column>
-      <Grid.Column width={6}>
+      <Grid.Column computer={6} mobile={16}>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <h2 style={{margin: 0, padding: 0, fontFamily: 'Montserrat, sans-serif'}}>Tóm tắt đơn hàng</h2>
-          <h2 style={{margin: 0, padding: 0}}>{totalWithDelivery.toLocaleString()}<u>đ</u></h2>
+          <h2 style={{margin: 0, padding: 0, fontFamily: 'Montserrat, sans-serif'}}>Tóm tắt đơn hàng:</h2>
+          <h2 style={{margin: 0, padding: 0, fontFamily: 'Montserrat'}}>{totalWithDelivery.toLocaleString()}<u>đ</u></h2>
         </div>
         <Segment placeholder>
+          <div className="segment-item">
           {cartItems.filter(item => item.checked).map((item, index) => (
-              <div key={index} style={{marginBottom: '0.8em', marginTop: '1em'}}>
-                <ItemGroup style={{marginLeft: '1.5vw'}}>
+              <div key={index} className="segment-item-item">
+                <ItemGroup className="item-item-group">
                   <Item key={index}>
-                      <ItemImage size='small' style={{scale:'1'}} className="cartitemimage" src={item.photoURL} alt={item.id} />
-                      <ItemContent verticalAlign="top" style={{paddingLeft: '1.2em', paddingTop: '1.5em'}}>
+                      <ItemImage size='small' style={{scale:'1'}} className="cartitemimage cart-item-image" src={item.photoURL} alt={item.id} />
+                      <ItemContent verticalAlign="top" style={{paddingLeft: '1.2em', paddingTop: '1.5em', fontFamily: 'Montserrat'}}>
                           <div className="itemheader">
                               <ItemHeader style={{fontSize:'1.2em', fontWeight: 'bold'}} content={item.name}/>
                           </div>
@@ -219,16 +222,18 @@ export default function ShoppingForm() {
                           </ItemContent>
                       </Item>
                   </ItemGroup>
+                  <Divider/>
               </div>
               )
           )}
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <p>Tạm tính</p>
-            <p>{total.toLocaleString()}đ</p>
+          </div>
+          <div className="tamtinh" style={{display: 'flex', justifyContent: 'space-between'}}>
+            <p style={{fontFamily: 'Montserrat'}}>Tạm tính</p>
+            <p style={{fontFamily: 'Montserrat'}}>{total.toLocaleString()}đ</p>
           </div>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <p>Phí vận chuyển</p>
-            <p>{typeof deliveryFee === 'number' ? deliveryFee.toLocaleString() : deliveryFee}đ</p>
+            <p style={{fontFamily: 'Montserrat'}}>Phí vận chuyển</p>
+            <p style={{fontFamily: 'Montserrat'}}>{typeof deliveryFee === 'number' ? deliveryFee.toLocaleString() : deliveryFee}đ</p>
           </div>
           <div style={{ borderTop: '1px solid grey', marginBottom: '1em' }} />
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -236,8 +241,9 @@ export default function ShoppingForm() {
             <h2 style={{margin: 0, padding: 0}}>{totalWithDelivery.toLocaleString()}đ</h2>
           </div>
         </Segment>
-        <Button onClick={() => navigate('/giohang')}>Quay lại giỏ hàng</Button>
+        <Button className="backtocart" onClick={() => navigate('/giohang')}>Quay lại giỏ hàng</Button>
         <Button
+          className="hoantatdonhang"
           onClick={handleSubmit(onSubmit)}
           style={{fontFamily:'Montserrat, sans-serif'}} 
           color="black">Hoàn tất đơn hàng
