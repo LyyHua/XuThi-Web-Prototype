@@ -1,9 +1,6 @@
 import { Popup, Icon, ItemGroup, Item, ItemImage, ItemContent, ItemHeader, ItemDescription, Divider, Button } from "semantic-ui-react";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { createId } from "@paralleldrive/cuid2";
-import { setCheckoutId } from "../../app/store/CheckoutId";
 
 export default function ShoppingCart() {
 
@@ -14,21 +11,6 @@ export default function ShoppingCart() {
     const navigate = useNavigate();
 
     const checkoutId = useAppSelector(state => state.checkoutId);
-
-    useEffect(() => {
-        // Get the checkoutId from localStorage
-        const savedCheckoutId = localStorage.getItem('checkoutId');
-    
-        // If there's a saved checkoutId, use it
-        if (savedCheckoutId) {
-          dispatch(setCheckoutId(savedCheckoutId));
-        } else {
-          // Otherwise, generate a new checkoutId and save it in localStorage
-          const newCheckoutId = createId();
-          dispatch(setCheckoutId(newCheckoutId));
-          localStorage.setItem('checkoutId', newCheckoutId);
-        }
-      }, [dispatch]);
 
     return (
         <Popup

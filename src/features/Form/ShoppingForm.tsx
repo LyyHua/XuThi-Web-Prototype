@@ -122,8 +122,22 @@ export default function ShoppingForm() {
     }
     else if(value === 'VietQR'){
       try {
-        const result = await createPaymentLink({ amount: totalWithDelivery });
-    
+        const VietQRCartItems = cartItems.filter(item => item.checked).map(item => ({
+          name: `${item.name}, size: ${item.size}`,
+          quantity: item.count,
+          price: item.price,
+        }));
+        const buyerAddress = `${data.useraddress}, ${selectedWard?.text}, ${selectedDistrict?.text}, ${selectedCity?.text}`;
+        const result = await createPaymentLink({ 
+          amount: totalWithDelivery,
+          items: VietQRCartItems,
+          buyerName: data.username,
+          buyerEmail: data.useremail,
+          buyerPhone: data.userphonenumber,
+          buyerAddress: buyerAddress,
+          buyerNote: data.usernote,
+        });
+
         // Read result of the Cloud Function.
         const paymentLink = result.data as PaymentLink;
         
@@ -131,9 +145,11 @@ export default function ShoppingForm() {
         if (typeof paymentLink === 'object' && paymentLink !== null) {
           const checkoutUrl = paymentLink.checkoutUrl;
           if (typeof checkoutUrl === 'string') {
-            localStorage.setItem('tempCartItems', JSON.stringify(formDataWithLocation));
-            localStorage.setItem('checkOrderCode', JSON.stringify(paymentLink.orderCode));
-            localStorage.setItem('checkPaymentLinkId', JSON.stringify(paymentLink.paymentLinkId));
+            dispatch(resetCartItems());
+            dispatch(resetShoppingFormState());
+            dispatch(resetProvince());
+            dispatch(resetCheckoutId());
+            localStorage.clear();
             window.location.href = checkoutUrl;
           } else {
             console.error('Error: checkoutUrl is not a string', checkoutUrl);
@@ -162,7 +178,7 @@ export default function ShoppingForm() {
                 checked={value === 'COD'}
                 onChange={handleRadioChange}
               />
-              <Image src="/COD.svg" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
+              <Image src="https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/COD.svg?alt=media&token=31a87277-a341-4632-a42e-c24182c50030" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
               <p>Thanh toán khi nhận hàng (COD)</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2em' }}>
@@ -172,7 +188,7 @@ export default function ShoppingForm() {
                 checked={value === 'VietQR'}
                 onChange={handleRadioChange}
               />
-              <Image bordered src="/vietqr.svg" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
+              <Image bordered src="https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/vietqr.svg?alt=media&token=37203c05-2936-474a-953c-b6233d1919cc" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
               <p>Chuyển khoản qua mã QR</p>
           </div>
         </Form>

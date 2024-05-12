@@ -14,53 +14,11 @@ import FinishShopping from "../../features/FinishShopping/FinishShopping";
 import { createId } from "@paralleldrive/cuid2";
 import { useEffect } from "react";
 import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
-import { resetCheckoutId, setCheckoutId } from "../store/CheckoutId";
-import { setDoc, doc } from "firebase/firestore";
-import { resetCartItems } from "../../features/Product/ProductItemSlices";
-import { db } from "../config/firebase";
-import { resetProvince } from "../store/Province";
-import { resetShoppingFormState } from "../store/ShoppingFormInput";
-import { getFunctions, httpsCallable } from "firebase/functions";
-
-interface PaymentLinkInformationResponse {
-  data: {
-    status: string;
-  };
-}
+import { setCheckoutId } from "../store/CheckoutId";
 
 export default function App() {
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const checkPaymentLinkId = JSON.parse(localStorage.getItem('checkPaymentLinkId') || 'null');
-  
-    if (checkPaymentLinkId) {
-      const fetchData = async () => {
-        try {
-          const functionsInstance = getFunctions();
-          const getPaymentLinkInformation = httpsCallable(functionsInstance, 'getPaymentInformation');
-          const response = await getPaymentLinkInformation({ paymentLinkId: checkPaymentLinkId });
-          const data = response.data as PaymentLinkInformationResponse['data'];
-          console.log(data.status)
-          if (data.status === 'PAID') {
-            // Retrieve cart items from local storage
-            const tempCartItems = JSON.parse(localStorage.getItem('tempCartItems') || '');
-            await setDoc(doc(db, "đơn hàng đã chuyển khoản", checkPaymentLinkId), tempCartItems);
-            dispatch(resetCartItems());
-            dispatch(resetShoppingFormState());
-            dispatch(resetProvince());
-            dispatch(resetCheckoutId());
-            localStorage.clear();
-          }
-        } catch (error) {
-          console.error('Error getting payment link information:', error);
-        }
-      };
-  
-      fetchData();
-    }
-  }, [dispatch]);
 
   useEffect(() => {
     const savedCheckoutId = localStorage.getItem('checkoutId');

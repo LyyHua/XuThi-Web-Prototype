@@ -35,30 +35,29 @@ export default function AddToShoppingCart(props: any) {
     <Modal 
         className="modal"
         size='small'
-        style={{width: '34%', height: '55%'}}
         onClose={() => handleClose(props.productitems.id)}
         onOpen={() => handleOpen(props.productitems.id)}
         open={open[props.productitems.id]}
         trigger={
             <Button circular className="shoppingcartcircle">
-            <Icon inverted size='large' className="innershoppingcartcircle" name="cart plus" style={{ position: 'absolute', top: '25%', left: '30%' }}/>
+            <Icon inverted size='large' className="innershoppingcartcircle" name="cart plus"/>
             </Button>
         }
         >
-        <ModalContent image className="modalcontent">
-            <Image style={{marginLeft: '1.5vw'}} size="small" src={props.productitems.photoURL} alt={props.productitems.name} />
-            <ModalDescription className="modal-description" style={{marginTop: '2vh'}}>
-            <Header>{props.productitems.name}</Header>
-            <p>{props.productitems.description}</p>
-            <h3><strong>{props.productitems.price.toLocaleString()}</strong><u>đ</u></h3>
-            <Button icon className="closebutton" onClick={() => handleClose(props.productitems.id)}>
-                <Icon size='large' className="closebuttonicon" name="times"/>
-            </Button>
+        <ModalContent image className="modalcontent custom-modal-content">
+            <Image className="modal-image" size="small" src={props.productitems.photoURL} alt={props.productitems.name} />
+            <ModalDescription className="modal-description custom-modal-description" >
+                <Header>{props.productitems.name}</Header>
+                <p>Mã: {props.productitems.id}</p>
+                <h3><strong>{props.productitems.price.toLocaleString()}</strong><u>đ</u></h3>
+                <Button icon className="closebutton" onClick={() => handleClose(props.productitems.id)}>
+                    <Icon size='large' className="closebuttonicon" name="times"/>
+                </Button>
             </ModalDescription>
         </ModalContent>
-        <ModalContent style={{marginTop: '-2.5vh'}}>
-            <h3 style={{marginLeft: '1.5vw'}}>Kích cỡ</h3>
-        <ModalDescription style={{marginLeft: '1.5vw'}}>
+        <ModalContent className="modal-content-top">
+            <h3 className="modal-content-title">Kích cỡ</h3>
+        <ModalDescription className="modal-content-description">
             {props.productitems.size && props.productitems.size.map((size: string, index: number) => {
                 return (
                 <Button
@@ -74,13 +73,13 @@ export default function AddToShoppingCart(props: any) {
                 />
                 );
             })}
-            {errorMessage && <p style={{color: 'red', marginTop: '2vh', marginBottom: '-1.5vh'}}>{errorMessage}</p>}
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
             </ModalDescription>
         </ModalContent>
         <ModalActions className="buttonholder">
             <Button
             className="addtocartbutton" 
-            content='THÊM VÀO GIỎ HÀNG'
+            content='THÊM VÀO GIỎ'
             color='black' 
             onClick={() => {
                 if (active === null){
@@ -107,7 +106,6 @@ export default function AddToShoppingCart(props: any) {
                 className="pay"
                 color='black'
                 inverted
-                style={{color: 'black', marginLeft: '3.5em', marginBottom: '1.5em', marginTop: '1em', marginRight: '2em'}}
                 content="THANH TOÁN NGAY"
                 onClick={() => {
                     if (active === null){

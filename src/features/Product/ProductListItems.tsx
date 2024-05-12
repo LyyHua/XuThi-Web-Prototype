@@ -9,7 +9,7 @@ export default function ProductListItems(props: any) {
         <Grid.Row>
           {props.products && props.products.map((products: any, index: number) => {
             return (
-              <Grid.Column key={index} width={3} style={{ padding: '1vw', marginBottom: '2vh' }}>
+              <Grid.Column key={index} computer={3} mobile={8} style={{ padding: '1vw', marginBottom: '2vh' }}>
                 <Container className="product">
                   <Reveal animated="fade">
                     <RevealContent visible>
@@ -20,9 +20,9 @@ export default function ProductListItems(props: any) {
                     </RevealContent>
                   </Reveal>
                   <AddToShoppingCart productitems = {products}/>
-                  <h2>{products.name}</h2>
-                  <p>Mã: {products.id}</p>
-                  <h3><strong>{products.price.toLocaleString()}</strong><u>đ</u></h3>
+                  <h2 style={{fontFamily: 'Montserrat'}} className="product-title">{products.name}</h2>
+                  <p className="product-id">Mã: {products.id}</p>
+                  <h3 className="product-price"><strong>{products.price.toLocaleString()}</strong><u>đ</u></h3>
                 </Container>
               </Grid.Column>
             );
