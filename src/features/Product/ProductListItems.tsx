@@ -1,40 +1,28 @@
-import { Grid, Container} from "semantic-ui-react";
+import { Grid, Container, Reveal, RevealContent, Image} from "semantic-ui-react";
 import AddToShoppingCart from "../Shopping Cart/AddToShoppingCart";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 
 export default function ProductListItems(props: any) {
-
-  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
-
-  const navigate = useNavigate();
     
   return (
     <Grid centered>
         <Grid.Row>
           {props.products && props.products.map((products: any, index: number) => {
-            const isHovered = hoveredImage === products.name;
             return (
-              <Grid.Column key={index} width={3} style={{ padding: '1vw', marginBottom: '2vh' }}>
+              <Grid.Column key={index} computer={3} mobile={8} style={{ padding: '1vw', marginBottom: '2vh' }}>
                 <Container className="product">
-                <div className="image-container" onClick={() => navigate(`/sanpham/${products.id}`)} style={{cursor: 'pointer'}}>
-                  <img
-                    src={products.photoURL}
-                    alt={products.name}
-                    className={`product-image ${isHovered ? 'fade-out' : 'fade-in'}`}
-                  />
-                  <img
-                    src={products.photoURL2}
-                    alt={products.name}
-                    className={`product-image ${isHovered ? 'fade-in' : 'fade-out'}`}
-                    onMouseEnter={() => setHoveredImage(products.name)}
-                    onMouseLeave={() => setHoveredImage(null)}
-                  />
-                </div>
+                  <Reveal animated="fade">
+                    <RevealContent visible>
+                      <Image src={products.photoURL}/>
+                    </RevealContent>
+                    <RevealContent hidden>
+                      <Image src={products.photoURL2}/>
+                    </RevealContent>
+                  </Reveal>
                   <AddToShoppingCart productitems = {products}/>
-                  <h2>{products.name}</h2>
-                  <p>{products.description}</p>
-                  <h3><strong>{products.price.toLocaleString()}</strong><u>đ</u></h3>
+                  <h2 style={{fontFamily: 'Montserrat'}} className="product-title">{products.name}</h2>
+                  <p className="product-id">Mã: {products.id}</p>
+                  <h3 className="product-price"><strong>{products.price.toLocaleString()}</strong><u>đ</u></h3>
                 </Container>
               </Grid.Column>
             );

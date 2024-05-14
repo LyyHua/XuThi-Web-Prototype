@@ -1,9 +1,6 @@
-import { Popup, Icon, ItemGroup, Item, ItemImage, ItemContent, ItemHeader, ItemDescription, Divider, Button } from "semantic-ui-react";
+import { Popup, Icon, ItemGroup, Item, ItemImage, ItemContent, ItemHeader, ItemDescription, Divider, Button, Container } from "semantic-ui-react";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { createId } from "@paralleldrive/cuid2";
-import { setCheckoutId } from "../../app/store/CheckoutId";
 
 export default function ShoppingCart() {
 
@@ -15,22 +12,8 @@ export default function ShoppingCart() {
 
     const checkoutId = useAppSelector(state => state.checkoutId);
 
-    useEffect(() => {
-        // Get the checkoutId from localStorage
-        const savedCheckoutId = localStorage.getItem('checkoutId');
-    
-        // If there's a saved checkoutId, use it
-        if (savedCheckoutId) {
-          dispatch(setCheckoutId(savedCheckoutId));
-        } else {
-          // Otherwise, generate a new checkoutId and save it in localStorage
-          const newCheckoutId = createId();
-          dispatch(setCheckoutId(newCheckoutId));
-          localStorage.setItem('checkoutId', newCheckoutId);
-        }
-      }, [dispatch]);
-
     return (
+        <Container className="popupcontainer" style={{width: '100%'}}>
         <Popup
             position='bottom right'
             size='huge'
@@ -44,11 +27,11 @@ export default function ShoppingCart() {
             <Popup.Content className="popupcartcontent">
                 {cartItems.map((item, index) => {
                 return (
-                    <div key={index} style={{marginBottom: '5.5vh'}}>
-                        <ItemGroup style={{marginLeft: '1.5vw'}}>
+                    <div key={index} className="itemitemgroup">
+                        <ItemGroup className='itemgroup'>
                             <Item key={index}>
                                 <ItemImage size='small' className="cartitemimage" src={item.photoURL} alt={item.id} />
-                                <ItemContent verticalAlign="top" style={{paddingLeft: '1em'}}>
+                                <ItemContent verticalAlign="top" style={{paddingLeft: '1.8em'}}>
                                     <div className="itemheader">
                                         <ItemHeader style={{fontSize:'0.9em', fontWeight: 'bold'}} content={item.name}/>
                                     </div>
@@ -127,5 +110,6 @@ export default function ShoppingCart() {
                 />
             </Popup.Content>
         </Popup>
+        </Container>
     )
 }
