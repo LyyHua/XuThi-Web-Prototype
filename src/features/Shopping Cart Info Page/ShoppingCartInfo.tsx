@@ -120,9 +120,9 @@ export default function ShoppingCartInfo() {
             <h2 style={{ fontFamily: 'Montserrat', margin: 0, marginRight: '10px' }}>Tạm tính:</h2>
             <h3 style={{ margin: 0, fontFamily: 'Montserrat', marginTop: '0.2em'}}>{cartItems.filter(item => item.checked).reduce((acc, item) => acc + item.count * item.price, 0).toLocaleString()}<u>đ</u></h3>
           </div>
-          <Button className="continue-buying" onClick={() => navigate('/')}>Tiếp tục mua sắm</Button>
+          <Button className="continue-buying text-font" onClick={() => navigate('/')}>Tiếp tục mua sắm</Button>
           <Button
-            className="checkout-button"
+            className="checkout-button text-font"
             onClick={() => {
             navigate(`/thanhtoan/${checkoutId}`);
             }}

@@ -168,7 +168,7 @@ export default function ShoppingForm() {
   };
 
   return (
-    <Grid className="shoppingformfont" style={{marginTop: '5em', marginLeft: '4em', marginRight: '5em'}}>
+    <Grid className="shoppingformfont text-font" style={{marginTop: '5em', marginLeft: '4em', marginRight: '5em'}}>
       <Grid.Column mobile={16} computer={10} style={{paddingRight: '3em'}}>
         <ShoppingFormPersonalInput register={register} errors={errors}/>
         <Form className="radio-form" style={{paddingTop: '0.5em'}}>
@@ -191,7 +191,7 @@ export default function ShoppingForm() {
                 onChange={handleRadioChange}
               />
               <Image bordered src="https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/vietqr.svg?alt=media&token=37203c05-2936-474a-953c-b6233d1919cc" size="mini" style={{ marginLeft: '1.5em', scale: '1.4', marginRight: '1.5em'}} />
-              <p>Chuyển khoản qua mã QR</p>
+              <p>Chuyển khoản ngân hàng bằng VietQR (free ship)</p>
           </div>
         </Form>
       </Grid.Column>

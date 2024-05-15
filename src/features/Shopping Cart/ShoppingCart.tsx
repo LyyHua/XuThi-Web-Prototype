@@ -23,7 +23,7 @@ export default function ShoppingCart() {
             className="popupcart"
             trigger={<Icon size='big' name="shopping cart" style={{ marginLeft: "0.5em" }} />}
         >
-            <Popup.Header style={{margin: '1vw'}} className="popupcartheader"><strong>GIỎ HÀNG</strong></Popup.Header>
+            <Popup.Header style={{margin: '1vw'}} className="popupcartheader text-font"><strong>GIỎ HÀNG</strong></Popup.Header>
             <Popup.Content className="popupcartcontent">
                 {cartItems.map((item, index) => {
                 return (

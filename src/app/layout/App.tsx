@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
 import { setCheckoutId } from "../store/CheckoutId";
 import CancelPayment from "../../features/Cancel Payment/CancelPayment";
+import AboutUs from "./footer/AboutUs";
 
 export default function App() {
 
@@ -45,6 +46,13 @@ export default function App() {
                 <NavBar />
                 <ImageCarousel image={CarouselData}/>
                 <ProductList product={ProductItems} />
+                <PageCredit />
+            </>
+        }/>
+        <Route path="/gioithieu" element={
+            <>
+                <NavBar />
+                <AboutUs/>
                 <PageCredit />
             </>
         }/>

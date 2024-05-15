@@ -41,7 +41,7 @@ export default function  ShoppingFormPersonalInput({register: registerProp, erro
     };
 
     return (
-        <Container className="shoppingformpersonalinput">
+        <Container className="shoppingformpersonalinput text-font">
             <Header className="input-header" style={{marginBottom: '1.2em'}} content='THÔNG TIN ĐƠN HÀNG'/>
             <Form>
                 <Header className="input-header" style={{fontFamily: "Montserrat, sans-serif"}} content='HỌ VÀ TÊN'/>

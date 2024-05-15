@@ -78,7 +78,7 @@ export default function AddToShoppingCart(props: any) {
         </ModalContent>
         <ModalActions className="buttonholder">
             <Button
-            className="addtocartbutton" 
+            className="addtocartbutton text-font" 
             content='THÊM VÀO GIỎ'
             color='black' 
             onClick={() => {
@@ -103,7 +103,7 @@ export default function AddToShoppingCart(props: any) {
             }}
             />
             <Button
-                className="pay"
+                className="pay text-font"
                 color='black'
                 inverted
                 content="THANH TOÁN NGAY"
