@@ -16,7 +16,9 @@ import { useEffect } from "react";
 import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
 import { setCheckoutId } from "../store/CheckoutId";
 import CancelPayment from "../../features/Cancel Payment/CancelPayment";
+import ChoosingShoesSize from "./footer/ChoosingShoesSize";
 import AboutUs from "./footer/AboutUs";
+import ProductPage from "./ProductPage/ProductPage";
 
 export default function App() {
 
@@ -49,11 +51,18 @@ export default function App() {
                 <PageCredit />
             </>
         }/>
-        <Route path="/gioithieu" element={
+        <Route path="/huong-dan-chon-co-giay" element={
             <>
                 <NavBar />
-                <AboutUs/>
+                <ChoosingShoesSize/>
                 <PageCredit />
+            </>
+        }/>
+        <Route path="/gioi-thieu" element={
+            <>
+                <NavBar/>
+                <AboutUs/>
+                <PageCredit/>
             </>
         }/>
         <Route path="/giohang" element={
@@ -66,6 +75,7 @@ export default function App() {
         <Route path="/sanpham/:id" element={
           <>
             <NavBar/>
+            <ProductPage />
             <PageCredit/>
           </>
         }/>
