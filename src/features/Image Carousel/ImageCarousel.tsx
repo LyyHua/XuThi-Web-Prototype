@@ -3,6 +3,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 export default function ImageCarousel(props: any) {
   return (
+    <div style={{paddingTop: '5em'}}>
       <Carousel swipeable={true} infiniteLoop stopOnHover showThumbs={false} emulateTouch={true}>
           {props.image.map((image: any, index: number) => {
               return (
@@ -10,5 +11,6 @@ export default function ImageCarousel(props: any) {
               )
           })}
       </Carousel>
+    </div>
   )
 }

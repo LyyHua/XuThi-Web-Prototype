@@ -33,14 +33,14 @@ export default function ShoppingCart() {
                                 <ItemImage size='small' className="cartitemimage" src={item.photoURL} alt={item.id} />
                                 <ItemContent verticalAlign="top" style={{paddingLeft: '1.8em'}}>
                                     <div className="itemheader">
-                                        <ItemHeader style={{fontSize:'0.9em', fontWeight: 'bold'}} content={item.name}/>
+                                        <ItemHeader style={{fontSize:'0.9em', fontWeight: 'bold', fontFamily: 'Montserrat'}} content={item.name}/>
                                     </div>
                                     <ItemDescription style={{fontSize: '0.75em'}}>
                                         <div style={{marginBottom: '0', marginTop: '-1.3vh'}}>
-                                            <p style={{marginBottom: '0.6vh'}}>{item.description}</p>
-                                            <p style={{marginBottom: '0.6vh'}}>Số lượng: {item.count}</p>
-                                            <p style={{marginBottom: '0.6vh'}}>Kích cỡ: {item.size}</p>
-                                            <p style={{marginBottom: '0.6vh'}}><strong>{item.price.toLocaleString()}<u>đ</u></strong></p>
+                                            <p className="text-font" style={{marginBottom: '0.6vh'}}>{item.description}</p>
+                                            <p className="text-font" style={{marginBottom: '0.6vh'}}>Số lượng: {item.count}</p>
+                                            <p className="text-font" style={{marginBottom: '0.6vh'}}>Kích cỡ: {item.size}</p>
+                                            <p className="text-font" style={{marginBottom: '0.6vh'}}><strong>{item.price.toLocaleString()}<u>đ</u></strong></p>
                                         </div>
                                         <Button
                                             compact

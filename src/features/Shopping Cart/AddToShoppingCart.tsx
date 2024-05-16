@@ -69,7 +69,7 @@ export default function AddToShoppingCart(props: any) {
                     className={'sizebutton ${active === size ? "active" : ""}'}
                     content={size}
                     size='large'
-                    style={{color: active === size ? 'white' : 'black', marginRight: '1vw'}}
+                    style={{color: active === size ? 'white' : 'black', marginRight: '1em', marginBottom: '1em'}}
                 />
                 );
             })}
@@ -98,7 +98,6 @@ export default function AddToShoppingCart(props: any) {
                             size: active
                         }
                     });
-                    handleClose(props.productitems.id);
                 }
             }}
             />

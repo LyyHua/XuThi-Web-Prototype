@@ -8,6 +8,12 @@
   margin: 0 auto;
   padding: 0;
 }
+.product-page-container{
+  padding-top: 6em;
+}
+.content > .header{
+  font-family: "Montserrat", sans-serif !important;
+}
 .pagecredit{
   position: relative;
   bottom: 0;
@@ -34,14 +40,13 @@
     transform: scale(1.8); /* Adjust the scale value as needed */
     padding-top: 18%;
 }
-
 .carousel-root{
-  display: flex;
-  margin-top: 65px;
   justify-content: center;
   align-items: center;
 }
-
+.thumbs{
+  justify-content: center !important;
+}
 #footer-main {
   background: #2E2E2E;
 }
@@ -193,6 +198,13 @@
     margin-left: 0.5vw;
     height: 15vh;
   }
+  .product-page-button{
+    margin-top: 1em;
+    margin-left: 1.2em;
+  }
+  .product-page-message{
+    width: 75%;
+  }
   .product-title{
     margin-top: 1em !important;
     line-height: 1.5em !important;
@@ -273,6 +285,12 @@
   .segment-item-item{
     margin-bottom: 0.8em !important;
     margin-top: 1em !important;
+  }
+  .thumb{
+    width: 200px !important;
+  }
+  .product-page-right-grid{
+    padding-top: 9em !important;
   }
 }
 
@@ -496,5 +514,19 @@
   }
   .hoantatdonhang{
     width: 50% !important;
+  }
+  .thumb{
+    width: 120px !important;
+  }
+  .product-page-button{
+    margin-top: 2.5em;
+    margin-left: 0.2em;
+  }
+  .product-page-add-to-cart-button{
+    margin-right: 3em !important;
+    margin-bottom: 3em !important;
+  }
+  .product-page-right-grid{
+    margin-top: -2.5em !important;
   }
 }
