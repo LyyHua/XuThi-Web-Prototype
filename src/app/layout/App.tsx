@@ -19,6 +19,7 @@ import CancelPayment from "../../features/Cancel Payment/CancelPayment";
 import ChoosingShoesSize from "./footer/ChoosingShoesSize";
 import AboutUs from "./footer/AboutUs";
 import ProductPage from "./ProductPage/ProductPage";
+import ReturnPolicy from "./footer/ReturnPolicy";
 
 export default function App() {
 
@@ -55,6 +56,13 @@ export default function App() {
             <>
                 <NavBar />
                 <ChoosingShoesSize/>
+                <PageCredit />
+            </>
+        }/>
+        <Route path="/chinh-sach-doi-tra" element={
+            <>
+                <NavBar />
+                <ReturnPolicy/>
                 <PageCredit />
             </>
         }/>

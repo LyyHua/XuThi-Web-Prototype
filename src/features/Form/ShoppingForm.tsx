@@ -4,7 +4,7 @@ import { useNavigate} from "react-router-dom"
 import { Button, Form, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment, Image, Radio, Divider } from "semantic-ui-react";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import ShoppingFormPersonalInput from "./ShoppingFormPersonalInput";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../app/config/firebase";
 import { resetProvince } from "../../app/store/Province";
 import { resetCartItems } from "../Product/ProductItemSlices";
@@ -12,6 +12,7 @@ import { resetShoppingFormState } from "../../app/store/ShoppingFormInput";
 import { resetCheckoutId } from "../../app/store/CheckoutId";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { FirebaseError } from "firebase/app";
+import 'firebase/firestore';
 
 interface PaymentLink {
   checkoutUrl: string;
@@ -109,7 +110,7 @@ export default function ShoppingForm() {
       },
       "Giỏ hàng": checkedCartItems,
       "Tổng tiền": totalWithDelivery.toLocaleString() + 'đ',
-      
+      "Thời gian đặt hàng": Timestamp.now(),
     };
     if (value === 'COD'){
       await setDoc(doc(db, "đơn hàng", checkoutId), formDataWithLocation);

@@ -323,6 +323,9 @@
     padding-left: 0 !important;
     margin-left: 0 !important;
   }
+  .popupcartheader{
+    padding-bottom: 0.5em !important;
+  }
   .results{
     left: -30% !important;
   }

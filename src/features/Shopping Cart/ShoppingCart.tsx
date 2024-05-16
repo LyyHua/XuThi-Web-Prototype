@@ -21,7 +21,7 @@ export default function ShoppingCart() {
             mouseLeaveDelay={300}
             hoverable={true}
             className="popupcart"
-            trigger={<Icon size='big' name="shopping cart" style={{ marginLeft: "0.5em" }} />}
+            trigger={<Icon size='big' className="nav-bar-shopping-cart" name="shopping cart" style={{ marginLeft: "0.5em" }} />}
         >
             <Popup.Header style={{margin: '1vw'}} className="popupcartheader text-font"><strong>GIỎ HÀNG</strong></Popup.Header>
             <Popup.Content className="popupcartcontent">

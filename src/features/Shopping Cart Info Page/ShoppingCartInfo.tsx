@@ -80,16 +80,15 @@ export default function ShoppingCartInfo() {
           <ItemGroup divided>
             {cartItems.map((item, index) => {
               return (
-                <Item key={item.id}>
+                <Item key={`${item.id}-${item.size}`}>
                   <Checkbox
                     className="checkbox-item-margin"
                     checked={item.checked}
                     onChange={() => handleCheckboxChange(index)} />
                   <ItemImage size='small' src={item.photoURL} alt={item.id} className="item-image-style"  />
                   <ItemContent className="item-content">
-                    <ItemHeader className="item-header" style={{fontFamily:'Montserrat, sans-serif'}} content={item.name} />
+                    <ItemHeader className="item-header" style={{fontFamily:'Montserrat, sans-serif'}}>{item.name}</ItemHeader>
                     <ItemDescription className="item-description">
-                      <p style={{fontFamily:'Montserrat, sans-serif'}}>{item.description}</p>
                       <p style={{fontFamily:'Montserrat, sans-serif'}}>Số lượng: {item.count}</p>
                       <p style={{fontFamily:'Montserrat, sans-serif'}}>Kích cỡ: {item.size}</p>
                       <p style={{fontFamily:'Montserrat, sans-serif'}}><strong>{item.price.toLocaleString()}<u>đ</u></strong></p>

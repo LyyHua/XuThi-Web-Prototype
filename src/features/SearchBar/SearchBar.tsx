@@ -71,9 +71,6 @@ function SearchBar() {
       aligned='right'
       size='large'
       loading={loading}
-      onResultSelect={(_, data) =>
-        dispatch({ type: 'UPDATE_SELECTION', selection: data.result.name })
-      }
       onSearchChange={handleSearchChange}
       results={results}
       value={value}

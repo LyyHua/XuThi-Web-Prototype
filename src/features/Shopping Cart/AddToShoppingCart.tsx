@@ -98,6 +98,7 @@ export default function AddToShoppingCart(props: any) {
                             size: active
                         }
                     });
+                    handleClose(props.productitems.id);
                 }
             }}
             />

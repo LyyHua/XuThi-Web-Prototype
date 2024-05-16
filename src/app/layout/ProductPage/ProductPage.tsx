@@ -4,12 +4,12 @@ import { Carousel } from "react-responsive-carousel";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Container, Grid, Message } from "semantic-ui-react";
 import { ProductItems } from "../../../features/Product/ProductItems";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useAppDispatch } from "../../store/store";
 import ProductPageTabs from "./ProductPageTabs";
 
 export default function ProductPage() {
     
-    const checkoutId = useAppSelector(state => state.checkoutId);
+    const checkoutId = localStorage.getItem('checkoutId');
 
     const { id } = useParams<{id: string}>();
 
