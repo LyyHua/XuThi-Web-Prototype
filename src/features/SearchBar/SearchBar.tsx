@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Grid, Search, Image } from 'semantic-ui-react';
 import { ProductItems } from '../Product/ProductItems';
-
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
   loading: false,
@@ -29,36 +29,35 @@ function exampleReducer(state: any, action: any) {
 function SearchBar() {
   const [state, dispatch] = React.useReducer(exampleReducer, initialState);
   const { loading, results, value } = state;
+  const navigate = useNavigate();
 
   const timeoutRef = React.useRef<number>();
-  const handleSearchChange = React.useCallback((data: any) => {
+  const handleSearchChange = React.useCallback((e: any, data: any) => {
     clearTimeout(timeoutRef.current);
     dispatch({ type: 'START_SEARCH', query: data.value });
 
     timeoutRef.current = window.setTimeout(() => {
-      if (data && data.value && data.value.length === 0) {
+      if (data.value.length === 0) {
         dispatch({ type: 'CLEAN_QUERY' });
         return;
       }
 
       const re = new RegExp(_.escapeRegExp(data.value), 'i');
-      const isMatch = (result: any) => re.test(result.name);
+      const isMatch = (result: any) => re.test(result.name) || re.test(result.id);
 
       const filteredResults = _.filter(ProductItems, isMatch);
 
-      const results = filteredResults.map((item:any) => ({
-        price: `Giá: ${Number(item.price).toLocaleString()}`,
-        description: item.description,
-        title: item.name,
-        image: item.photoURL,
-      }));
-
       dispatch({
         type: 'FINISH_SEARCH',
-        results: results,
+        results: filteredResults.length > 0 ? filteredResults.map((item, index) => ({
+          price: `Giá: ${Number(item.price).toLocaleString()}`,
+          description: item.id,
+          title: `${index+1}. ${item.name}`,
+          image: item.photoURL,
+        })) : [],
       });
     }, 300);
-  }, []);
+  }, [dispatch]);
 
   React.useEffect(() => {
     return () => {
@@ -79,11 +78,11 @@ function SearchBar() {
       results={results}
       value={value}
       resultRenderer={({title, description, price, image}) => (
-        <Grid>
+        <Grid onClick={() => navigate(`/sanpham/${description}`)}>
           <Grid.Column verticalAlign='middle' width={10}>
-            <div className='title'>{title}</div>
-            <div className='description'>{description}</div>
-            <div className='price'>{price}</div>
+            <div className='title text-font'>{title}</div>
+            <div className='description text-font'>Mã: {description}</div>
+            <div className='price text-font'>{price}</div>
           </Grid.Column>
           <Grid.Column width={6}>
             <Image src={image} alt={title} />

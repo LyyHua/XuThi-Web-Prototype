@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button, Container, Grid, Message } from "semantic-ui-react";
 import { ProductItems } from "../../../features/Product/ProductItems";
 import { useAppDispatch, useAppSelector } from "../../store/store";
+import ProductPageTabs from "./ProductPageTabs";
 
 export default function ProductPage() {
     
@@ -130,6 +131,7 @@ export default function ProductPage() {
                     />
                 </div>
             </Grid.Column>
+            <ProductPageTabs/>
         </Grid>
     </Container>
   )

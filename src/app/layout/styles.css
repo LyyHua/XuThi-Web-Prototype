@@ -8,6 +8,20 @@
   margin: 0 auto;
   padding: 0;
 }
+.scrollable-tab .ui.secondary.pointing.menu {
+  font-size: 1.3em;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollable-tab .ui.secondary.pointing.menu::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari and Opera */
+}
+.scrollable-tab .ui.secondary.pointing.menu .item {
+  flex-shrink: 0;
+}
 .product-page-container{
   padding-top: 6em;
 }
@@ -15,7 +29,7 @@
   font-family: "Montserrat", sans-serif !important;
 }
 .pagecredit{
-  position: relative;
+  position: fixed;
   bottom: 0;
   width: 100%;
   display: flex;
@@ -198,6 +212,12 @@
     margin-left: 0.5vw;
     height: 15vh;
   }
+  .address-list-content{
+    padding-top: 0.5em !important;
+  }
+  .tabpanedesktop{
+    width: 72%;
+  }
   .product-page-button{
     margin-top: 1em;
     margin-left: 1.2em;
@@ -292,6 +312,9 @@
   .product-page-right-grid{
     padding-top: 9em !important;
   }
+  .pagecredit{
+    padding-bottom: 2em !important;
+  }
 }
 
 
@@ -300,13 +323,23 @@
     padding-left: 0 !important;
     margin-left: 0 !important;
   }
+  .results{
+    left: -30% !important;
+  }
+  .page-credit-header{
+    padding-top: 1.25em;
+  }
+  .page-credit-end{
+    padding-bottom: 1em;
+  }
   .shoppingcartcircle:not(.innershoppingcartcircle) {
     transform: scale(0.8);
     top: 5%;
     left: 68%;
   }
   .pagecredit{
-    padding: 1em 0 !important;
+    padding: 2em 0 !important;
+    padding-top: 1em;
   }
   .buttonholder {
     display: flex;
