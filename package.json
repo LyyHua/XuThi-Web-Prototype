@@ -12,6 +12,7 @@
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",
     "@reduxjs/toolkit": "^2.2.3",
+    "@swc/types": "^0.1.7",
     "@types/faker": "^6.6.9",
     "@types/firebase": "^3.2.1",
     "axios": "^1.6.8",
