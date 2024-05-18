@@ -13,13 +13,13 @@ import SimplifiedNavBar from "./simplifiednavbar/SimplifiedNavBar";
 import FinishShopping from "../../features/FinishShopping/FinishShopping";
 import { createId } from "@paralleldrive/cuid2";
 import { useEffect } from "react";
-import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
-import { setCheckoutId } from "../store/CheckoutId";
 import CancelPayment from "../../features/Cancel Payment/CancelPayment";
 import ChoosingShoesSize from "./footer/ChoosingShoesSize";
 import AboutUs from "./footer/AboutUs";
 import ProductPage from "./ProductPage/ProductPage";
 import ReturnPolicy from "./footer/ReturnPolicy";
+import { setCheckoutId } from "../store/CheckoutId";
+import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
 
 export default function App() {
 

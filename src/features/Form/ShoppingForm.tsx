@@ -11,8 +11,7 @@ import { resetCartItems } from "../Product/ProductItemSlices";
 import { resetShoppingFormState } from "../../app/store/ShoppingFormInput";
 import { resetCheckoutId } from "../../app/store/CheckoutId";
 import { getFunctions, httpsCallable } from "firebase/functions";
-import { FirebaseError } from "firebase/app";
-import 'firebase/firestore';
+
 
 interface PaymentLink {
   checkoutUrl: string;
@@ -122,7 +121,6 @@ export default function ShoppingForm() {
       navigate('/hoanthanh');
     }
     else if(value === 'VietQR'){
-      try {
         const VietQRCartItems = cartItems.filter(item => item.checked).map(item => ({
           name: `${item.name}, size: ${item.size}`,
           quantity: item.count,
@@ -160,12 +158,7 @@ export default function ShoppingForm() {
         } else {
           console.error('Error: paymentLink is not an object', paymentLink);
         }
-      } catch (error) {
-        // Getting the Error details.
-        const { code, message } = error as FirebaseError;
-        console.error(`Error calling createPaymentLink: ${code} - ${message}`);
       }
-    }
   };
 
   return (

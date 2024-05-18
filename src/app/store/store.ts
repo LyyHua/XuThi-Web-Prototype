@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { productItemSlice } from "../../features/Product/ProductItemSlices";
-import localStorageMiddleware from "./LocalStorageMiddleware";
-import checkoutId from "./CheckoutId";
 import Province from "./Province";
 import formReducer  from "./ShoppingFormInput";
+import CheckoutId from "./CheckoutId";
+import localStorageMiddleware from "./LocalStorageMiddleware";
 
 // Load the cart items from localStorage
 const savedCartItems = localStorage.getItem('cart');
@@ -23,7 +23,7 @@ if (!Array.isArray(preloadedState.cartitem.cartItems)) {
 export const store = configureStore({
   reducer: {
     cartitem: productItemSlice.reducer,
-    checkoutId: checkoutId,
+    checkoutId: CheckoutId,
     province: Province,
     shoppingFormState: formReducer, // updated from formState to shoppingFormState
   },
