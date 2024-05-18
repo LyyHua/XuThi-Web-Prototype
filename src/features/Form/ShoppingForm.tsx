@@ -9,7 +9,7 @@ import { db } from "../../app/config/firebase";
 import { resetProvince } from "../../app/store/Province";
 import { resetCartItems } from "../Product/ProductItemSlices";
 import { resetShoppingFormState } from "../../app/store/ShoppingFormInput";
-import { resetCheckoutId } from "../../app/store/CheckoutId";
+import { resetCheckoutId } from "../../app/store/checkoutId";
 import { getFunctions, httpsCallable } from "firebase/functions";
 
 

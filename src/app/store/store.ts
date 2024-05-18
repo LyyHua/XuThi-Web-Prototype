@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { productItemSlice } from "../../features/Product/ProductItemSlices";
 import Province from "./Province";
 import formReducer  from "./ShoppingFormInput";
-import CheckoutId from "./CheckoutId";
-import localStorageMiddleware from "./LocalStorageMiddleware";
+import CheckoutId from "./checkoutId";
+import localStorageMiddleware from "./localStorageMiddleware";
 
 // Load the cart items from localStorage
 const savedCartItems = localStorage.getItem('cart');

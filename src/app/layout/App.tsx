@@ -18,8 +18,8 @@ import ChoosingShoesSize from "./footer/ChoosingShoesSize";
 import AboutUs from "./footer/AboutUs";
 import ProductPage from "./ProductPage/ProductPage";
 import ReturnPolicy from "./footer/ReturnPolicy";
-import { setCheckoutId } from "../store/CheckoutId";
-import { selectAreAllItemsChecked } from "../store/AreAllItemsChecked";
+import { setCheckoutId } from "../store/checkoutId";
+import { selectAreAllItemsChecked } from "../store/areAllItemsChecked";
 
 export default function App() {
 
