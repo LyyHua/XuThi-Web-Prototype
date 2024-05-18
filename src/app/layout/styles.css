@@ -202,6 +202,11 @@
     margin-left: 0.5vw;
     height: 15vh;
   }
+  .chinh-sach-doi-tra{
+    width: 70% !important;
+    margin-right: 15vw !important;
+    margin-left: 15vw !important;
+  }
   .address-list-content{
     padding-top: 0.5em !important;
   }
@@ -313,6 +318,10 @@
     padding-left: 0 !important;
     margin-left: 0 !important;
   }
+  .chinh-sach-doi-tra{
+    margin-right: 5vw !important;
+    margin-left: 5vw !important;
+  }
   .scrollable-tab .ui.secondary.pointing.menu {
     display: flex;
     overflow-x: auto;
@@ -357,7 +366,7 @@
   
   .addtocartbutton, .pay {
     box-sizing: content-box;
-    width: 41% !important; /* Take full width of the parent container */
+    width: 37vw !important; /* Take full width of the parent container */
     height: 1.8em !important;
     padding: 1em 0 !important; /* Adjust the padding as needed */
     justify-content: center !important; /* Center the text horizontally */
@@ -395,19 +404,19 @@
   .addtocartbutton{
     font-size: 0.85em !important;
     position: relative !important; /* Add this */
-    margin-left: 1em !important; /* Adjust the margin as needed */
+    margin-left: 4vw !important; /* Adjust the margin as needed */
     margin-bottom: 0em !important; /* Adjust the margin as needed */
     margin-top: -1.5em !important; /* Adjust the margin as needed */
-    margin-right: 0em !important; /* Adjust the margin as needed */
+    margin-right: 10vw !important; /* Adjust the margin as needed */
     bottom: 0 !important; /* Adjust as needed */
   }
   .pay{
     font-size: 0.85em !important;
     color: black !important;
-    margin-left: 0em !important; /* Adjust the margin as needed */
+    margin-left: 0 !important; /* Adjust the margin as needed */
     margin-bottom: 0em !important; /* Adjust the margin as needed */
     margin-top: -1.5em !important; /* Adjust the margin as needed */
-    margin-right: 1em !important; /* Adjust the margin as needed */
+    margin-right: 4vw !important; /* Adjust the margin as needed */
     bottom: 0 !important; /* Adjust as needed */
   }
   .buttonholder{
@@ -558,10 +567,8 @@
   }
   .product-page-button{
     margin-top: 2.5em;
-    margin-left: 0.2em;
   }
   .product-page-add-to-cart-button{
-    margin-right: 3em !important;
     margin-bottom: 3em !important;
   }
   .product-page-right-grid{

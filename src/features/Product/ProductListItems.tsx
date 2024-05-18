@@ -15,10 +15,10 @@ export default function ProductListItems(props: any) {
                 <Container className="product">
                   <Reveal className="clickable" onClick={() => navigate(`/sanpham/${products.id}`)} animated="fade">
                     <RevealContent visible>
-                      <Image src={products.photoURL}/>
+                      <Image alt={products.name} src={products.photoURL}/>
                     </RevealContent>
                     <RevealContent hidden>
-                      <Image src={products.photoURL2}/>
+                      <Image alt={products.name} src={products.photoURL2}/>
                     </RevealContent>
                   </Reveal>
                   <AddToShoppingCart productitems = {products}/>
