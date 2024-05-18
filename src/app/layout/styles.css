@@ -1,5 +1,4 @@
 @import url('semantic-ui-css/semantic.min.css');
-
 .ui.fixed.menu {
   background-color: white;
   border: none;
@@ -11,16 +10,7 @@
 .scrollable-tab .ui.secondary.pointing.menu {
   font-size: 1.3em;
   font-family: 'Montserrat', sans-serif;
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.scrollable-tab .ui.secondary.pointing.menu::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari and Opera */
-}
-.scrollable-tab .ui.secondary.pointing.menu .item {
-  flex-shrink: 0;
+  margin-top: -1.5em;
 }
 .product-page-container{
   padding-top: 6em;
@@ -322,6 +312,18 @@
   .ui.modal{
     padding-left: 0 !important;
     margin-left: 0 !important;
+  }
+  .scrollable-tab .ui.secondary.pointing.menu {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollable-tab .ui.secondary.pointing.menu::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari and Opera */
+  }
+  .scrollable-tab .ui.secondary.pointing.menu .item {
+    flex-shrink: 0;
   }
   .popupcartheader{
     padding-bottom: 0.5em !important;

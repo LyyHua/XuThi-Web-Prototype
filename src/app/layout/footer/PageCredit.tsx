@@ -28,7 +28,7 @@ export default function PageCredit() {
                                 <ListContent as='a' href='https://www.facebook.com/xuthibrand' target='_blank' style={{color: 'white', fontFamily: 'Montserrat', paddingTop: '0.4em'}}>https://www.facebook.com/xuthibrand</ListContent>
                             </List.Item>
                             <List.Item style={{marginTop: '0.5em'}}>
-                                <Image style={{filter: 'invert(1)', transform: 'scale(0.8)', transformOrigin: 'top left'}} size="mini" src='https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/tiktok-svgrepo-com.svg?alt=media&token=19b55377-ac49-47d7-9a5d-397c0d03175c' />
+                                <Image style={{filter: 'invert(1)', transformOrigin: 'top left', width: '30px', height: '30px'}} alt='tiktok-logo' src='https://firebasestorage.googleapis.com/v0/b/xuthi-6f838.appspot.com/o/tiktok-svgrepo-com.svg?alt=media&token=19b55377-ac49-47d7-9a5d-397c0d03175c' />
                                 <ListContent as='a' href='https://www.tiktok.com/@xuthibrand' target='_blank' style={{color: 'white', fontFamily: 'Montserrat', paddingTop: '0.4em'}}>https://www.tiktok.com/@xuthibrand</ListContent>
                             </List.Item>
                         </List>

@@ -33,6 +33,7 @@ function SearchBar() {
 
   const timeoutRef = React.useRef<number>();
   const handleSearchChange = React.useCallback((e: any, data: any) => {
+    console.assert(typeof e !== 'undefined');
     clearTimeout(timeoutRef.current);
     dispatch({ type: 'START_SEARCH', query: data.value });
 
@@ -67,6 +68,7 @@ function SearchBar() {
 
   return (
     <Search
+      arial-label="Search"
       className='custom-search'
       aligned='right'
       size='large'
