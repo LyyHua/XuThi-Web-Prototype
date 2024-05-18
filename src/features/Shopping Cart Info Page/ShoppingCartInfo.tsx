@@ -83,7 +83,7 @@ export default function ShoppingCartInfo() {
                 <Item key={`${item.id}-${item.size}`}>
                   <Checkbox
                     className="checkbox-item-margin"
-                    checked={item.checked}
+                    checked={item.checked ?? false}
                     onChange={() => handleCheckboxChange(index)} />
                   <ItemImage size='small' src={item.photoURL} alt={item.id} className="item-image-style"  />
                   <ItemContent className="item-content">
