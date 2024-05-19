@@ -37,22 +37,21 @@ export default function ProductPage() {
         setErrorMessage(null);
       };
 
-    if (!product || !product.photoURL || !product.photoURL2) {
+    if (!product || !product.photoURL) {
         return <div>Loading...</div>;
     }
-    const images = [product.photoURL, product.photoURL2];
 
   return (
     <Container style={{width: '90%'}} className="product-page-container">
         <Grid>
             <Grid.Column mobile={16} computer={9}>
-                <Carousel swipeable={true} showStatus={false} showArrows={false} infiniteLoop stopOnHover showThumbs={true} emulateTouch={true}>
-                    {images.map((src, index) => (
-                        <div key={index}>
-                            <img style={{width: '100%'}} src={src} alt={`Product Image ${index + 1}`} />
-                        </div>
-                    ))}
-                </Carousel>
+            <Carousel swipeable={true} showStatus={false} showArrows={false} infiniteLoop stopOnHover showThumbs={true} emulateTouch={true}>
+                {product?.photoURL.map((url: string, index: number) => (
+                    <div key={index}>
+                        <img src={url} alt={`Product Image ${index + 1}`} />
+                    </div>
+                ))}
+            </Carousel>
             </Grid.Column>
             <Grid.Column className="product-page-right-grid" mobile={16} computer={7}>
                 <p style={{fontFamily: 'Montserrat', fontSize: '1.5em'}}>{product.name}</p>
@@ -82,7 +81,7 @@ export default function ProductPage() {
                     <Button
                         className="addtocartbutton text-font product-page-add-to-cart-button" 
                         content='THÊM VÀO GIỎ'
-                        color='black' 
+                        color='black'
                         onClick={() => {
                             if (active === null){
                             setErrorMessage('Vui lòng chọn kích cỡ sản phẩm')

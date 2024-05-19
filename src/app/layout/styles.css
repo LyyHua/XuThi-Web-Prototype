@@ -48,9 +48,6 @@
   justify-content: center;
   align-items: center;
 }
-.thumbs{
-  justify-content: center !important;
-}
 #footer-main {
   background: #2E2E2E;
 }
@@ -302,7 +299,7 @@
     margin-top: 1em !important;
   }
   .thumb{
-    width: 200px !important;
+    width: 150px !important;
   }
   .product-page-right-grid{
     padding-top: 9em !important;
@@ -563,7 +560,11 @@
     width: 50% !important;
   }
   .thumb{
-    width: 120px !important;
+    width: 80px !important;
+  }
+  .thumbs{
+    margin-left: -0.8em !important;
+    padding-left: 1em !important;
   }
   .product-page-button{
     margin-top: 2.5em;
