@@ -2,8 +2,12 @@ import { Container, Menu, MenuItem } from "semantic-ui-react";
 import ShoppingCart from "../../../features/Shopping Cart/ShoppingCart";
 import { Link } from "react-router-dom";
 import SearchBar from "../../../features/SearchBar/SearchBar";
+import LoginForm from "../../../features/auth/LoginForm";
+import { useAppSelector } from "../../store/store";
+import SignInMenu from "./SignInMenu";
 
 export default function NavBar() {
+  const {authenticated} = useAppSelector(state => state.auth);
   return (
     <Menu borderless inverted fixed="top">
       <Container style={{ width: "90%" }}>
@@ -16,6 +20,7 @@ export default function NavBar() {
           inverted='true'
           >
           <SearchBar />
+          {authenticated ? <SignInMenu /> : <LoginForm />}
           <ShoppingCart />
         </MenuItem>
       </Container>

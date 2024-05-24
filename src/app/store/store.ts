@@ -5,6 +5,8 @@ import Province from "./Province";
 import formReducer  from "./ShoppingFormInput";
 import CheckoutId from "./checkoutId";
 import localStorageMiddleware from "./localStorageMiddleware";
+import { authSlice } from "../../features/auth/authSlice";
+import { modalSlice } from "../common/modalSlice";
 
 // Load the cart items from localStorage
 const savedCartItems = localStorage.getItem('cart');
@@ -26,6 +28,8 @@ export const store = configureStore({
     checkoutId: CheckoutId,
     province: Province,
     shoppingFormState: formReducer, // updated from formState to shoppingFormState
+    auth: authSlice.reducer,
+    modals: modalSlice.reducer,
   },
   preloadedState, // Use the preloadedState
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),

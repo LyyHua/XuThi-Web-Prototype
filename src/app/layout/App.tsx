@@ -20,10 +20,27 @@ import ProductPage from "./ProductPage/ProductPage";
 import ReturnPolicy from "./footer/ReturnPolicy";
 import { setCheckoutId } from "../store/checkoutId";
 import { selectAreAllItemsChecked } from "../store/areAllItemsChecked";
+import { onAuthStateChanged } from "firebase/auth";
+import { logout, signIn } from "../../features/auth/authSlice";
+import { auth } from "../config/firebase";
 
 export default function App() {
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, {
+      next: user => {
+        if(user){
+          dispatch(signIn(user))
+        } else{
+          dispatch(logout())
+        }
+      },
+      error: error => console.log(error),
+      complete: () => {}
+    })
+  }, [dispatch])
 
   useEffect(() => {
     const savedCheckoutId = localStorage.getItem('checkoutId');
