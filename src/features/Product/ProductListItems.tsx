@@ -1,4 +1,4 @@
-import { Grid, Container, Reveal, RevealContent, Image, Placeholder} from "semantic-ui-react";
+import { Grid, Container, Reveal, RevealContent, Image} from "semantic-ui-react";
 import AddToShoppingCart from "../Shopping Cart/AddToShoppingCart";
 import { useNavigate } from "react-router-dom";
 import { ProductItems } from "./ProductItems";
@@ -14,10 +14,6 @@ export default function ProductListItems() {
                 <Container className="product">
                   <Reveal className="clickable" onClick={() => navigate(`/sanpham/${products.id}`)} animated="fade">
                     <RevealContent visible>
-                      
-                        <Placeholder style={{ height: 150, width: 150 }}>
-                          <Placeholder.Image />
-                        </Placeholder>
                       <Image alt={products.name} src={products.photoURL[0]} />
                     </RevealContent>
                     <RevealContent hidden>
