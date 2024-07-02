@@ -6,8 +6,8 @@ import { closeModal } from "../../app/common/modalSlice";
 
 export default function LoginForm() {
   const panes = [
-    {menuItem: 'ĐĂNG NHẬP', render: () => <TabPane><SignInForm /></TabPane>},
-    {menuItem: 'ĐĂNG KÝ', render: () => <TabPane><SignUpForm /></TabPane>},
+    {menuItem: 'ĐĂNG NHẬP', render: () => <TabPane attached={false}><SignInForm /></TabPane>},
+    {menuItem: 'ĐĂNG KÝ', render: () => <TabPane attached={false}><SignUpForm /></TabPane>},
   ]
   const dispatch = useAppDispatch();
   return (
@@ -20,7 +20,14 @@ export default function LoginForm() {
         }    
     >
       <ModalContent>
-      <Tab panes={panes} />
+      <Tab
+        className=""
+        panes={panes} 
+        menu={{ 
+          secondary: true, 
+          pointing: true, 
+        }}
+      />
       </ModalContent>
       
     </Modal>

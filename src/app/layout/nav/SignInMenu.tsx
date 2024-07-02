@@ -14,8 +14,8 @@ export default function SignInMenu() {
     navigate('/');
   }
   return (
-    <Menu.Item position='right'>
-        <Dropdown pointing='top left' text={`${currentUser?.ten} ${currentUser?.ho}`}>
+    <Menu.Item position='right' className="sign-in-menu">
+        <Dropdown pointing='top right' text={currentUser?.ten || 'User'}>
             <Dropdown.Menu>
                 <Dropdown.Item text='Thông tin tài khoản' icon='user' />
                 <Dropdown.Item onClick={handleSignOut} text='Đăng xuất' icon='power' />

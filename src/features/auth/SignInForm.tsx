@@ -22,9 +22,10 @@ export default function SignInForm() {
   }
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-        <Header content='EMAIL' />
+        <Header className="text-font" content='EMAIL' />
         <Form.Input
             defaultValue=''
+            className="text-font"
             placeholder='Nhập email'
             // eslint-disable-next-line no-useless-escape
             {...register('email', {required: true, pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g})}
@@ -33,8 +34,9 @@ export default function SignInForm() {
                 errors.email?.type === 'pattern' && 'Email không hợp lệ'
             }
         />
-        <Header content='MẬT KHẨU' />
+        <Header className="text-font" content='MẬT KHẨU' />
         <Form.Input
+            className="text-font"
             type='password'
             defaultValue=''
             placeholder='Nhập mật khẩu'
@@ -51,6 +53,7 @@ export default function SignInForm() {
             fluid
             size='large'
             color='black'
+            className="text-font"
             content='ĐĂNG NHẬP'
         />
     </Form>

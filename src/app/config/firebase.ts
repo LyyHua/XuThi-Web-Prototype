@@ -27,7 +27,8 @@ if (import.meta.env.DEV) {
 const app = initializeApp(firebaseConfig);
 
 initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LePD9UpAAAAACA8cZVvM9hMSA0ueFUEjwmjk_mo')
+  provider: new ReCaptchaV3Provider('6LePD9UpAAAAACA8cZVvM9hMSA0ueFUEjwmjk_mo'),
+  isTokenAutoRefreshEnabled: true
 })
 
 export const db = getFirestore(app);

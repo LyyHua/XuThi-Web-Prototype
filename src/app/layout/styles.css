@@ -7,6 +7,9 @@
   margin: 0 auto;
   padding: 0;
 }
+.content .ui.pointing.secondary.menu{
+  font-family: 'Montserrat', sans-serif;
+}
 .login-modal-icon{
   margin-left: 0.5em !important;
 }
@@ -202,6 +205,9 @@
     margin-left: 0.5vw;
     height: 15vh;
   }
+  .popupcart{
+    margin-right: 2em !important;
+  }
   .chinh-sach-doi-tra{
     width: 70% !important;
     margin-right: 15vw !important;
@@ -318,6 +324,9 @@
     padding-left: 0 !important;
     margin-left: 0 !important;
   }
+  .sign-in-menu{
+    margin-right: -2em !important;
+  }
   .login-modal-icon{
     margin-right: -1em !important;
   }
@@ -325,7 +334,7 @@
     margin-left: -1em !important;
   }
   .ui.icon.input{
-    width: 200px;
+    width: 150px;
     margin-left: -1em !important;
   }
   .chinh-sach-doi-tra{

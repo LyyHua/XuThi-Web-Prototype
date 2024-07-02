@@ -1,24 +1,27 @@
-import { Grid, Container, Reveal, RevealContent, Image} from "semantic-ui-react";
+import { Grid, Container, Reveal, RevealContent, Image, Placeholder} from "semantic-ui-react";
 import AddToShoppingCart from "../Shopping Cart/AddToShoppingCart";
 import { useNavigate } from "react-router-dom";
-
-
-export default function ProductListItems(props: any) {
+import { ProductItems } from "./ProductItems";
+export default function ProductListItems() {
   const navigate = useNavigate();
-
+  
   return (
     <Grid centered>
         <Grid.Row>
-          {props.products && props.products.map((products: any, index: number) => {
+          {ProductItems.map((products: any, index: number) => {
             return (
               <Grid.Column key={index} computer={3} mobile={8} style={{ padding: '1vw', marginBottom: '2vh' }}>
                 <Container className="product">
                   <Reveal className="clickable" onClick={() => navigate(`/sanpham/${products.id}`)} animated="fade">
                     <RevealContent visible>
-                      <Image alt={products.name} src={products.photoURL[0]}/>
+                      
+                        <Placeholder style={{ height: 150, width: 150 }}>
+                          <Placeholder.Image />
+                        </Placeholder>
+                      <Image alt={products.name} src={products.photoURL[0]} />
                     </RevealContent>
                     <RevealContent hidden>
-                      <Image alt={products.name} src={products.photoURL[1]}/>
+                    <Image alt={products.name} src={products.photoURL[1]}/>
                     </RevealContent>
                   </Reveal>
                   <AddToShoppingCart productitems = {products}/>

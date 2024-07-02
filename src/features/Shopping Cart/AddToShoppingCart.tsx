@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Modal, Button, Icon, ModalContent, ModalDescription, Header, ModalActions, Image } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { useForm } from "react-hook-form";
 
 export default function AddToShoppingCart(props: any) {
 
@@ -31,6 +32,10 @@ export default function AddToShoppingCart(props: any) {
     setOpen(prevState => ({ ...prevState, [id]: false }));
   };
 
+  const {formState: {isSubmitting}} = useForm({
+    mode: 'onTouched'
+  })
+
   return (
     <Modal 
         className="modal"
@@ -39,7 +44,11 @@ export default function AddToShoppingCart(props: any) {
         onOpen={() => handleOpen(props.productitems.id)}
         open={open[props.productitems.id]}
         trigger={
-            <Button circular className="shoppingcartcircle">
+            <Button
+                loading={isSubmitting}
+                circular 
+                className="shoppingcartcircle"
+            >
             <Icon inverted size='large' className="innershoppingcartcircle" name="cart plus"/>
             </Button>
         }

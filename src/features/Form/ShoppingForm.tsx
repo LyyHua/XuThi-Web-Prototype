@@ -27,7 +27,7 @@ export default function ShoppingForm() {
 
   const checkoutId = useAppSelector((state) => state.checkoutId);
 
-  const {register, handleSubmit, formState: {errors} } = useForm({
+  const {register, handleSubmit, formState: {errors, isSubmitting} } = useForm({
     mode: 'onTouched',
   });
 
@@ -237,6 +237,7 @@ export default function ShoppingForm() {
         </Segment>
         <Button className="backtocart" onClick={() => navigate('/giohang')}>Quay lại giỏ hàng</Button>
         <Button
+          loading={isSubmitting}
           className="hoantatdonhang"
           onClick={handleSubmit(onSubmit)}
           style={{fontFamily:'Montserrat, sans-serif'}} 
