@@ -85,7 +85,7 @@ export default function ShoppingCartInfo() {
                     className="checkbox-item-margin"
                     checked={item.checked ?? false}
                     onChange={() => handleCheckboxChange(index)} />
-                  <ItemImage size='small' src={item.photoURL} alt={item.id} className="item-image-style"  />
+                  <ItemImage size='small' src={item.photoURL[0]} alt={item.id} className="item-image-style"  />
                   <ItemContent className="item-content">
                     <ItemHeader className="item-header" style={{fontFamily:'Montserrat, sans-serif'}}>{item.name}</ItemHeader>
                     <ItemDescription className="item-description">

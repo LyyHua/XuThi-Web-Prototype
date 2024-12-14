@@ -2,14 +2,10 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate} from "react-router-dom"
 import { Button, Form, Grid, Header, Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemImage, Segment, Image, Radio, Divider } from "semantic-ui-react";
-import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { useAppSelector } from "../../app/store/store";
 import ShoppingFormPersonalInput from "./ShoppingFormPersonalInput";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../app/config/firebase";
-import { resetProvince } from "../../app/store/Province";
-import { resetCartItems } from "../Product/ProductItemSlices";
-import { resetShoppingFormState } from "../../app/store/ShoppingFormInput";
-import { resetCheckoutId } from "../../app/store/checkoutId";
 import { getFunctions, httpsCallable } from "firebase/functions";
 
 
@@ -50,8 +46,6 @@ export default function ShoppingForm() {
       }
     }
   };
-
-  const dispatch = useAppDispatch();
 
   const [deliveryFee, setDeliveryFee] = useState<string | number>("--------");
 
@@ -113,11 +107,6 @@ export default function ShoppingForm() {
     };
     if (value === 'COD'){
       await setDoc(doc(db, "đơn hàng", checkoutId), formDataWithLocation);
-      dispatch(resetCartItems());
-      dispatch(resetShoppingFormState());
-      dispatch(resetProvince());
-      dispatch(resetCheckoutId());
-      localStorage.clear();
       navigate('/hoanthanh');
     }
     else if(value === 'VietQR'){
@@ -147,11 +136,6 @@ export default function ShoppingForm() {
           const checkoutUrl = paymentLink.checkoutUrl;
           if (typeof checkoutUrl === 'string') {
             window.location.href = checkoutUrl;
-            dispatch(resetCartItems());
-            dispatch(resetShoppingFormState());
-            dispatch(resetProvince());
-            dispatch(resetCheckoutId());
-            localStorage.clear();
           } else {
             console.error('Error: checkoutUrl is not a string', checkoutUrl);
           }
@@ -200,7 +184,7 @@ export default function ShoppingForm() {
               <div key={index} className="segment-item-item">
                 <ItemGroup className="item-item-group">
                   <Item key={index}>
-                      <ItemImage size='small' style={{scale:'1'}} className="cartitemimage cart-item-image" src={item.photoURL} alt={item.id} />
+                      <ItemImage size='small' style={{scale:'1'}} className="cartitemimage cart-item-image" src={item.photoURL[0]} alt={item.id} />
                       <ItemContent verticalAlign="top" style={{paddingLeft: '1.2em', paddingTop: '1.5em', fontFamily: 'Montserrat'}}>
                           <div className="itemheader">
                               <ItemHeader style={{fontSize:'1.2em', fontWeight: 'bold'}} content={item.name}/>

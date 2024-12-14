@@ -54,7 +54,7 @@ export default function AddToShoppingCart(props: any) {
         }
         >
         <ModalContent image className="modalcontent custom-modal-content">
-            <Image className="modal-image" size="small" src={props.productitems.photoURL} alt={props.productitems.name} />
+            <Image className="modal-image" size="small" src={props.productitems.photoURL[0]} alt={props.productitems.name} />
             <ModalDescription className="modal-description custom-modal-description" >
                 <Header>{props.productitems.name}</Header>
                 <p>Mã: {props.productitems.id}</p>

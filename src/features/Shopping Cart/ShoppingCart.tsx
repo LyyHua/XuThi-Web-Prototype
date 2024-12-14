@@ -30,7 +30,7 @@ export default function ShoppingCart() {
                     <div key={index} className="itemitemgroup">
                         <ItemGroup className='itemgroup'>
                             <Item key={index}>
-                                <ItemImage size='small' className="cartitemimage" src={item.photoURL} alt={item.id} />
+                                <ItemImage size='small' className="cartitemimage" src={item.photoURL[0]} alt={item.id} />
                                 <ItemContent verticalAlign="top" style={{paddingLeft: '1.8em'}}>
                                     <div className="itemheader">
                                         <ItemHeader style={{fontSize:'0.9em', fontWeight: 'bold', fontFamily: 'Montserrat'}} content={item.name}/>
