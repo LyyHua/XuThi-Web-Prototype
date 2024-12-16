@@ -54,7 +54,7 @@ function SearchBar() {
           price: `Giá: ${Number(item.price).toLocaleString()}`,
           description: item.id,
           title: `${index+1}. ${item.name}`,
-          image: item.photoURL,
+          image: item.photoURL[0],
         })) : [],
       });
     }, 300);
